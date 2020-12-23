@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary sticky-top">
+  <a class="navbar-brand" routerLink="/"> 🛍 eShop </a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/my-account">
+          My Account
+          <i class="fa-user-circle"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" exact> Home </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/cat"> Category </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/sale"> Sale </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/my-cart">
+          Cart
+          <i class="fa-shopping-cart"></i>
+
+          <span class="badge badge-danger">12</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/my-orders"> Orders </a>
+      </li>
+      <li class="nav-item">
+        <span class="nav-link"> Logout </span>
+      </li>
+    </ul>
+    <!-- <form
+          class="form-inline my-2 my-lg-0"
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            try {
+              const query = e.target.query.value;
+
+              props.getProductsRequest({ name: query });
+            } catch (err) {
+              console.log(" SearchBoxError =---- > ", err.message);
+            }
+          }}
+        >
+          <input
+            name="query"
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search product"
+          />
+          <button
+            class="btn bg-success text-light btn-outline-success my-2 my-sm-0"
+            type="submit"
+          >
+            Search
+          </button>
+        </form> -->
+  </div>
+</nav>

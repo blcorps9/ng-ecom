@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+$font-family: "Roboto-Regular", sans-serif;
+
+$color-dark: #000;
+$color-light: #fff;
+$color-grey: #333;
+
+$color-dodgerblue: #1e90ff;
+$color-goldenrod: #daa520;
+$color-purple: #663399;
+$color-green: #058809;
+$color-pink: #df09e2;
+
+:root {
+  --color-dodgerblue: #{$color-dodgerblue};
+  --color-goldenrod: #{$color-goldenrod};
+  --color-purple: #{$color-purple};
+  --color-green: #{$color-green};
+  --color-pink: #{$color-pink};
+
+  --color-grey: #{$color-grey};
+  --color-dark: #{$color-dark};
+  --color-light: #{$color-light};
+
+  --font-family: $font-family;
+}
