@@ -27,3 +27,10 @@ $color-pink: #df09e2;
 
   --font-family: $font-family;
 }
+
+.page {
+  max-width: 1024px;
+  width: 90%;
+  margin: 16px auto;
+  text-align: center;
+}

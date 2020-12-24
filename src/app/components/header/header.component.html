@@ -34,33 +34,23 @@
         <span class="nav-link"> Logout </span>
       </li>
     </ul>
-    <!-- <form
-          class="form-inline my-2 my-lg-0"
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-
-            try {
-              const query = e.target.query.value;
-
-              props.getProductsRequest({ name: query });
-            } catch (err) {
-              console.log(" SearchBoxError =---- > ", err.message);
-            }
-          }}
-        >
-          <input
-            name="query"
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search product"
-          />
-          <button
-            class="btn bg-success text-light btn-outline-success my-2 my-sm-0"
-            type="submit"
-          >
-            Search
-          </button>
-        </form> -->
+    <form
+      class="form-inline my-2 my-lg-0"
+      [formGroup]="searchForm"
+      (submit)="onSubmit()"
+    >
+      <input
+        formControlName="query"
+        class="form-control mr-sm-2"
+        type="search"
+        placeholder="Search product"
+      />
+      <button
+        class="btn bg-success text-light btn-outline-success my-2 my-sm-0"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
   </div>
 </nav>

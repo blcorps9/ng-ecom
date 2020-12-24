@@ -1,1 +1,118 @@
-<p>register works!</p>
+<div class="page registration-page p-4">
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <div class="row">
+        <p class="h4 col-12 text-center">Register</p>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <form
+            class="form-registration"
+            [formGroup]="profileForm"
+            (submit)="onSubmit()"
+          >
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label for="firstName">First Name</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  class="form-control"
+                  formControlName="firstName"
+                  [ngClass]="{ 'border border-danger': firstNameHasError }"
+                />
+              </div>
+              <div class="form-group col-6">
+                <label for="lastName">Last Name</label>
+                <input
+                  required
+                  type="text"
+                  id="lastName"
+                  class="form-control"
+                  formControlName="lastName"
+                  [ngClass]="{ 'border border-danger': lastNameHasError }"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="email">Email</label>
+                <input
+                  required
+                  id="email"
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  [ngClass]="{ 'border border-danger': emailHasError }"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label for="password">Password</label>
+                <input
+                  required
+                  minLength="6"
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                  [ngClass]="{ 'border border-danger': passwordHasError }"
+                />
+              </div>
+              <div class="form-group col-6">
+                <label for="confirmPassword">Confirm Password</label>
+                <input
+                  required
+                  minLength="6"
+                  type="password"
+                  id="confirmPassword"
+                  class="form-control"
+                  formControlName="confirmPassword"
+                  [ngClass]="{
+                    'border border-danger': confirmPasswordHasError
+                  }"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="role">Role</label>
+                <select
+                  required
+                  id="role"
+                  class="form-control"
+                  formControlName="role"
+                  [ngClass]="{ 'border border-danger': roleHasError }"
+                >
+                  <option value="">Choose...</option>
+                  <option value="admin">Admin</option>
+                  <option value="user">User</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary w-100">
+                Sign Up
+              </button>
+            </div>
+            <div class="form-group" *ngIf="errorMessage">
+              <div class="alert alert-danger" role="alert">
+                {{ errorMessage }}
+              </div>
+            </div>
+
+            <Hr />
+            <div class="form-row justify-content-center mt-4">
+              <div class="form-group col-6">
+                <a routerLink="/login" class="form-control btn btn-primary">
+                  Already a user? Click here to Login.
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
