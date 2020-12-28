@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 
+import type { FAIconObject } from "../../types/faTypes";
 import { PAYMENT_CARDS } from "../../../constants";
 
 @Component({
@@ -8,7 +9,13 @@ import { PAYMENT_CARDS } from "../../../constants";
   styleUrls: ["./payment-cards.component.scss"],
 })
 export class PaymentCardsComponent {
-  cards = PAYMENT_CARDS;
+  cards: FAIconObject[] = PAYMENT_CARDS.map(
+    (c) =>
+      ({
+        prefix: c.icon.prefix,
+        iconName: c.icon.iconName,
+      } as FAIconObject)
+  );
 
   constructor() {}
 }

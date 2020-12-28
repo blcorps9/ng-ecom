@@ -1,3 +1,5 @@
 <div className="payment-options">
-  <span *ngFor="let card of cards">{{ card.title }}</span>
+  <span *ngFor="let card of cards">
+    <fa-icon [icon]="card"></fa-icon>
+  </span>
 </div>

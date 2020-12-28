@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { RequestClientService } from "../../services/request-client/request-client.service";
 
 @Component({
   selector: "app-register",
@@ -11,7 +11,7 @@ export class RegisterComponent implements OnInit {
   profileForm: FormGroup;
   errorMessage: string = "";
 
-  constructor(private fb: FormBuilder, private client: HttpClient) {
+  constructor(private fb: FormBuilder, private client: RequestClientService) {
     this.profileForm = this.fb.group({
       firstName: ["Saint", Validators.required],
       lastName: ["Walker", Validators.required],
@@ -27,12 +27,26 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if (this.profileForm.status === "VALID") {
       this.client
-        .get("https://jsonplaceholder.typicode.com/todos/1")
-        .subscribe((x: any) => {
-          console.log("Observer got a next value: ", x);
+        .get("/comments", {
+          headers: {
+            "some-random-header-1": 342343545,
+            "some-random-header-2": 342343546,
+            "some-random-header-3": 342343547,
+            "content-type": "application/json",
+          },
+          params: {
+            postId: 1,
+            id: 4,
+          },
+        })
+        .subscribe(
+          (x: any) => {
+            console.log("Observer got a next value: ", x);
 
-          this.errorMessage = x?.title;
-        });
+            this.errorMessage = x?.body?.title;
+          },
+          (error) => console.log("error =-----> ", error)
+        );
     }
   }
 
