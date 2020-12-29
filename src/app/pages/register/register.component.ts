@@ -1,51 +1,92 @@
-import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RequestClientService } from "../../services/request-client/request-client.service";
+
+import * as actions from "./register.actions";
 
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   profileForm: FormGroup;
   errorMessage: string = "";
 
-  constructor(private fb: FormBuilder, private client: RequestClientService) {
+  profile = null;
+  httpMsg: string = "";
+
+  unsubscribe: any;
+
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private client: RequestClientService,
+    @Inject("AppStore") private appStore: any
+  ) {
     this.profileForm = this.fb.group({
       firstName: ["Saint", Validators.required],
       lastName: ["Walker", Validators.required],
       email: ["saint@walker.com", [Validators.required, Validators.email]],
-      password: ["12345", Validators.required],
-      confirmPassword: ["12345", Validators.required],
+      password: ["123456", Validators.required],
+      confirmPassword: ["123456", Validators.required],
       role: ["user", Validators.required],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.unsubscribe = this.appStore.subscribe(() => {
+      const { register } = this.appStore.getState();
+
+      if (register.data) {
+        this.profile = register.data.data || {};
+        this.httpMsg = register.data.message || "";
+      }
+
+      if (register.error) this.errorMessage = register.error.message || "";
+    });
+  }
 
   onSubmit() {
     if (this.profileForm.status === "VALID") {
+      this.errorMessage = "";
+      this.profile = null;
+      this.httpMsg = "";
+
+      this.appStore.dispatch(actions.getCommentsRequest());
+
+      const {
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword,
+        role,
+      } = this.profileForm.value;
+
       this.client
-        .get("/comments", {
-          headers: {
-            "some-random-header-1": 342343545,
-            "some-random-header-2": 342343546,
-            "some-random-header-3": 342343547,
-            "content-type": "application/json",
-          },
-          params: {
-            postId: 1,
-            id: 4,
+        .post("/auth/register", {
+          data: {
+            name: `${firstName} ${lastName}`,
+            email,
+            password,
+            confirmPassword,
+            role,
           },
         })
         .subscribe(
-          (x: any) => {
-            console.log("Observer got a next value: ", x);
-
-            this.errorMessage = x?.body?.title;
+          (resp: any) => {
+            this.appStore.dispatch(actions.getCommentsSuccess(resp.body.data));
+            this.router.navigateByUrl("/");
           },
-          (error) => console.log("error =-----> ", error)
+          (error: any) => {
+            this.appStore.dispatch(actions.getCommentsFailure(error.error));
+          }
         );
     }
   }

@@ -9,6 +9,8 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 
+import { configureStore } from "./store";
+
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { LoginComponent } from "./pages/login/login.component";
@@ -40,6 +42,8 @@ const routes: Routes = [
   },
 ];
 
+const store = configureStore();
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +64,12 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: "AppStore",
+      useValue: store,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

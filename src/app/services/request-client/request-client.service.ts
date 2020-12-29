@@ -1,7 +1,8 @@
+import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
 
+import { environment } from "../../../environments/environment";
 import { MakeParamsService } from "../make-params/make-params.service";
 import { MakeHeadersService } from "../make-headers/make-headers.service";
 
@@ -11,8 +12,7 @@ import type { HttpVerbs } from "../../types/httpTypes";
   providedIn: "root",
 })
 export class RequestClientService {
-  // baseUrl = "";
-  baseUrl = "https://jsonplaceholder.typicode.com";
+  baseUrl = environment.baseUrl;
 
   constructor(
     private client: HttpClient,
