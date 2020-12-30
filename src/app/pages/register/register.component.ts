@@ -3,7 +3,7 @@ import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RequestClientService } from "../../services/request-client/request-client.service";
 
-import * as actions from "./register.actions";
+import * as actions from "../../store/actions/user.actions";
 
 @Component({
   selector: "app-register",
@@ -13,9 +13,6 @@ import * as actions from "./register.actions";
 export class RegisterComponent implements OnInit, OnDestroy {
   profileForm: FormGroup;
   errorMessage: string = "";
-
-  profile = null;
-  httpMsg: string = "";
 
   unsubscribe: any;
 
@@ -41,24 +38,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.unsubscribe = this.appStore.subscribe(() => {
-      const { register } = this.appStore.getState();
+      const { user } = this.appStore.getState();
 
-      if (register.data) {
-        this.profile = register.data.data || {};
-        this.httpMsg = register.data.message || "";
-      }
-
-      if (register.error) this.errorMessage = register.error.message || "";
+      if (user.error) this.errorMessage = user.error.message || "";
     });
   }
 
   onSubmit() {
     if (this.profileForm.status === "VALID") {
       this.errorMessage = "";
-      this.profile = null;
-      this.httpMsg = "";
 
-      this.appStore.dispatch(actions.getCommentsRequest());
+      this.appStore.dispatch(actions.userRegisterRequest());
 
       const {
         firstName,
@@ -81,11 +71,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
         })
         .subscribe(
           (resp: any) => {
-            this.appStore.dispatch(actions.getCommentsSuccess(resp.body.data));
+            this.appStore.dispatch(actions.userRegisterSuccess(resp.body.data));
             this.router.navigateByUrl("/");
           },
           (error: any) => {
-            this.appStore.dispatch(actions.getCommentsFailure(error.error));
+            this.appStore.dispatch(actions.userRegisterFailure(error.error));
           }
         );
     }

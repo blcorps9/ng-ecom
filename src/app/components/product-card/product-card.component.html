@@ -1,0 +1,84 @@
+<ng-container *ngIf="product">
+  <a [routerLink]="product.detailsPage" class="product-card__wrapper">
+    <div class="product-card card m-2">
+      <div class="card-img-top" *ngIf="showImage">
+        <img
+          [src]="product.image"
+          height="100%"
+          class="prod-img"
+          [alt]="product.name"
+        />
+        <app-favorite-icon
+          [isFavorite]="isFavorite"
+          (click)="toggleFavorite($event)"
+        ></app-favorite-icon>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <h5 class="col-12 card-title">
+            {{ product.name }} - {{ product.brand }}
+          </h5>
+          <div class="col-12" *ngIf="product.promo">
+            <span class="badge badge-danger">{{ product.promo.label }}</span>
+          </div>
+        </div>
+        <ng-container *ngIf="product.colors">
+          <div class="row colors swatches my-2">
+            <!-- <Swatches
+                heading="Colors"
+                items={colors.map((c) => ({
+                  isSelected: c === color,
+                  value: c,
+                }))}
+                type="color"
+                onClick={this.onSelectColor}
+              /> -->
+          </div>
+        </ng-container>
+        <ng-container *ngIf="product.sizes">
+          <div class="row sizes swatches my-2">
+            <!-- <Swatches
+                heading="Sizes"
+                items={sizes.map((s) => ({
+                  isSelected: s === size,
+                  value: s,
+                }))}
+                type="size"
+                onClick={this.onSelectSize}
+              /> -->
+          </div>
+        </ng-container>
+        <div class="row flex-row align-items-center">
+          <div
+            class="p-0"
+            [ngClass]="{
+              'col-6 text-secondary': product.salePrice,
+              'col-12': !product.salePrice
+            }"
+          >
+            {{ product.price | currencyInr }}
+          </div>
+          <ng-container *ngIf="product.salePrice">
+            <div class="col-6 p-0 text-danger">
+              {{ product.salePrice | currency: "INR" }}
+            </div>
+          </ng-container>
+        </div>
+        <div
+          class="row cta m-0 flex-row align-items-center justify-content-between"
+        >
+          <div class="col-8 p-0">
+            <div onClick="{this.onAddToCart}" class="btn btn-primary">
+              Add to cart
+            </div>
+          </div>
+          <ng-container *ngIf="isInCart">
+            <div class="col-4 p-0" onClick="{this.onRemoveFromCart}">
+              <fa-icon [icon]="faRemoveBtnIcon"></fa-icon>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </a>
+</ng-container>

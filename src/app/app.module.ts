@@ -21,6 +21,9 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { BrandsComponent } from "./components/brands/brands.component";
 import { InfoSectionComponent } from "./components/info-section/info-section.component";
 import { PaymentCardsComponent } from "./components/payment-cards/payment-cards.component";
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { CurrencyInrPipe } from './pipes/currency-inr.pipe';
+import { FavoriteIconComponent } from './components/favorite-icon/favorite-icon.component';
 
 const routes: Routes = [
   {
@@ -56,6 +59,9 @@ const store = configureStore();
     BrandsComponent,
     InfoSectionComponent,
     PaymentCardsComponent,
+    ProductCardComponent,
+    CurrencyInrPipe,
+    FavoriteIconComponent,
   ],
   imports: [
     BrowserModule,

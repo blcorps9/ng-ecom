@@ -1,20 +1,19 @@
-import * as actions from "./login.actions";
+import * as actions from "./home.actions";
 
 import type { IReduxAction } from "../../types/reduxTypes";
-
 const initState = {
-  data: null,
+  data: [],
   error: null,
   isFetching: false,
 };
 
-export function login(state = initState, action: IReduxAction) {
+export function home(state = initState, action: IReduxAction) {
   switch (action.type) {
-    case actions.LOGIN_REQUEST:
-      return { ...state, isFetching: true, data: null, error: null };
-    case actions.LOGIN_SUCCESS:
+    case actions.GET_PRODUCTS_REQUEST:
+      return { ...state, isFetching: true };
+    case actions.GET_PRODUCTS_SUCCESS:
       return { ...state, isFetching: false, data: action.payload };
-    case actions.LOGIN_FAILURE:
+    case actions.GET_PRODUCTS_FAILURE:
       return { ...state, isFetching: false, error: action.error };
     default:
       return state;

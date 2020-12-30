@@ -4,7 +4,7 @@ import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
 
 import { RequestClientService } from "../../services/request-client/request-client.service";
 
-import * as actions from "./login.actions";
+import * as actions from "../../store/actions/user.actions";
 
 import type { IAppStore } from "../../types/reduxTypes";
 
@@ -26,16 +26,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     @Inject("AppStore") private appStore: IAppStore
   ) {
     this.profileForm = this.fb.group({
-      username: ["", [Validators.required, Validators.email]],
-      password: ["", Validators.required],
+      username: ["saint@walker.com", [Validators.required, Validators.email]],
+      password: ["123456", Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.unsubscribe = this.appStore.subscribe(() => {
-      const { login } = this.appStore.getState();
+      const { user } = this.appStore.getState();
 
-      if (login.error) this.errorMessage = login.error.message || "";
+      if (user.error) this.errorMessage = user.error.message || "";
     });
   }
 
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.profileForm.status === "VALID") {
       this.errorMessage = "";
 
-      this.appStore.dispatch(actions.loginRequest());
+      this.appStore.dispatch(actions.userLoginRequest());
 
       this.client
         .post("/auth/login", {
@@ -55,11 +55,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         })
         .subscribe(
           (resp: any) => {
-            this.appStore.dispatch(actions.loginSuccess(resp.body.data));
+            this.appStore.dispatch(actions.userLoginSuccess(resp.body.data));
             this.router.navigateByUrl("/");
           },
           (error: any) => {
-            this.appStore.dispatch(actions.loginFailure(error.error));
+            this.appStore.dispatch(actions.userLoginFailure(error.error));
           }
         );
     }

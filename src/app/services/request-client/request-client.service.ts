@@ -8,6 +8,10 @@ import { MakeHeadersService } from "../make-headers/make-headers.service";
 
 import type { HttpVerbs } from "../../types/httpTypes";
 
+type IHttpOpts = {
+  [key: string]: any;
+};
+
 @Injectable({
   providedIn: "root",
 })
@@ -40,19 +44,19 @@ export class RequestClientService {
     return this.client.request(method, this.baseUrl + url, options);
   }
 
-  post(url: string, opts: any): Observable<any> {
+  post(url: string, opts: IHttpOpts): Observable<any> {
     return this.makeRequest("post", url, opts);
   }
 
-  get(url: string, opts: any): Observable<any> {
+  get(url: string, opts: IHttpOpts = {}): Observable<any> {
     return this.makeRequest("get", url, opts);
   }
 
-  put(url: string, opts: any): Observable<any> {
+  put(url: string, opts: IHttpOpts = {}): Observable<any> {
     return this.makeRequest("put", url, opts);
   }
 
-  del(url: string, opts: any): Observable<any> {
+  del(url: string, opts: IHttpOpts = {}): Observable<any> {
     return this.makeRequest("delete", url, opts);
   }
 }

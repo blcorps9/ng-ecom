@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 
-import { login } from "../pages/login/login.reducer";
-import { register } from "../pages/register/register.reducer";
+import { user } from "./reducers/user.reducer";
+import { home } from "../pages/home/home.reducer";
 
 export function rootReducer() {
   return combineReducers({
-    register,
-    login,
+    user,
+    home,
   });
 }

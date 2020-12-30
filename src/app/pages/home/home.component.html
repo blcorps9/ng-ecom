@@ -1,1 +1,10 @@
-<p>home works!</p>
+<div class="col-2 h-100"></div>
+<div class="col-10 h-100">
+  <div class="row">
+    <app-product-card
+      class="col-3"
+      *ngFor="let product of products"
+      [product]="product"
+    ></app-product-card>
+  </div>
+</div>
