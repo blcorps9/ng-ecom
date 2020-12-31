@@ -1,10 +1,12 @@
-<div class="app-footer">
-  <app-brands style="width: 100%"> </app-brands>
-  <hr style="background-color: '#fff'; width: 100%" />
-  <app-info-section style="width: 100%"></app-info-section>
-  <hr style="background-color: '#fff'; width: 100%" />
-  <div class="footer-bottom">
-    <div class="site-copy-rights">© 2020 {{ siteName }}</div>
-    <app-payment-cards></app-payment-cards>
+<ng-template [appIfInViewport]>
+  <div class="app-footer">
+    <app-brands style="width: 100%"> </app-brands>
+    <hr style="background-color: '#fff'; width: 100%" />
+    <app-info-section style="width: 100%"></app-info-section>
+    <hr style="background-color: '#fff'; width: 100%" />
+    <div class="footer-bottom">
+      <div class="site-copy-rights">© 2020 {{ siteName }}</div>
+      <app-payment-cards></app-payment-cards>
+    </div>
   </div>
-</div>
+</ng-template>

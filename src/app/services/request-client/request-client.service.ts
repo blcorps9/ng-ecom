@@ -6,11 +6,7 @@ import { environment } from "../../../environments/environment";
 import { MakeParamsService } from "../make-params/make-params.service";
 import { MakeHeadersService } from "../make-headers/make-headers.service";
 
-import type { HttpVerbs } from "../../types/httpTypes";
-
-type IHttpOpts = {
-  [key: string]: any;
-};
+import type { IHttpVerbs, IHttpOpts } from "../../types";
 
 @Injectable({
   providedIn: "root",
@@ -24,7 +20,7 @@ export class RequestClientService {
     private makeParams: MakeParamsService
   ) {}
 
-  makeRequest(method: HttpVerbs, url: string, opts: any): Observable<any> {
+  makeRequest(method: IHttpVerbs, url: string, opts: any): Observable<any> {
     const headers = this.makeHeader.make(opts.headers);
 
     const options: any = {

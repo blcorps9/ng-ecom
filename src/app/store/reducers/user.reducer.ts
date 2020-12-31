@@ -1,5 +1,5 @@
 import * as actions from "../actions/user.actions";
-import type { IReduxAction } from "../../types/reduxTypes";
+import type { IReduxAction } from "../../types";
 
 const initState = {
   profile: {},

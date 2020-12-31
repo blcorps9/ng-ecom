@@ -1,4 +1,4 @@
-import { IAppStore, IReduxAction } from "../types/reduxTypes";
+import { IAppStore, IReduxAction } from "../types";
 
 export default function logger(store: IAppStore) {
   return (next: Function) => (action: IReduxAction) => {

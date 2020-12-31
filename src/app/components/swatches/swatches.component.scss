@@ -1,0 +1,33 @@
+.swatches {
+  .swatch {
+    display: inline-block;
+    margin-right: 4px;
+    cursor: pointer;
+    border: 2px solid grey;
+    padding: 2px;
+
+    &.size {
+      padding: 2px 8px;
+    }
+
+    &.color {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+
+      div {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+      }
+    }
+
+    &:hover {
+      border-color: var(--color-dodgerblue);
+    }
+
+    &.selected {
+      border-color: var(--color-dodgerblue);
+    }
+  }
+}

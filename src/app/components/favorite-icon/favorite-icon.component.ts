@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from "@angular/core";
-import type { FAIconObject } from "../../types/faTypes";
+import type { IFAIconObject } from "../../types";
 
 @Component({
   selector: "app-favorite-icon",
@@ -15,7 +15,7 @@ import type { FAIconObject } from "../../types/faTypes";
 export class FavoriteIconComponent implements OnInit, OnChanges {
   @Input() isFavorite = false;
 
-  faFavoriteIcon: FAIconObject = { prefix: "far", iconName: "heart" };
+  faFavoriteIcon: IFAIconObject = { prefix: "far", iconName: "heart" };
 
   constructor() {}
 

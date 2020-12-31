@@ -1,0 +1,10 @@
+<div class="row colors swatches my-2">
+  <div class="col-12">{{ heading }}</div>
+  <div class="col-12">
+    <div *ngFor="let swatch of xSwatches" [ngClass]="swatchClass(swatch)">
+      <div [style]="swatch.style" (click)="onClick($event, swatch)">
+        {{ swatch.label }}
+      </div>
+    </div>
+  </div>
+</div>

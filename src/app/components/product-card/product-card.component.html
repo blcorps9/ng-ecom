@@ -1,13 +1,15 @@
 <ng-container *ngIf="product">
-  <a [routerLink]="product.detailsPage" class="product-card__wrapper">
+  <a class="product-card__wrapper" [routerLink]="product.detailsPage">
     <div class="product-card card m-2">
-      <div class="card-img-top" *ngIf="showImage">
-        <img
-          [src]="product.image"
-          height="100%"
-          class="prod-img"
-          [alt]="product.name"
-        />
+      <div class="card-img-top">
+        <ng-template [appIfInViewport]>
+          <img
+            [src]="product.image"
+            height="100%"
+            class="prod-img"
+            [alt]="product.name"
+          />
+        </ng-template>
         <app-favorite-icon
           [isFavorite]="isFavorite"
           (click)="toggleFavorite($event)"
@@ -24,28 +26,24 @@
         </div>
         <ng-container *ngIf="product.colors">
           <div class="row colors swatches my-2">
-            <!-- <Swatches
-                heading="Colors"
-                items={colors.map((c) => ({
-                  isSelected: c === color,
-                  value: c,
-                }))}
-                type="color"
-                onClick={this.onSelectColor}
-              /> -->
+            <app-swatches
+              type="color"
+              heading="Colors"
+              [current]="selectedColor"
+              [swatches]="product.colors"
+              (onSelect)="onSelectColor($event)"
+            ></app-swatches>
           </div>
         </ng-container>
         <ng-container *ngIf="product.sizes">
           <div class="row sizes swatches my-2">
-            <!-- <Swatches
-                heading="Sizes"
-                items={sizes.map((s) => ({
-                  isSelected: s === size,
-                  value: s,
-                }))}
-                type="size"
-                onClick={this.onSelectSize}
-              /> -->
+            <app-swatches
+              type="size"
+              heading="Sizes"
+              [current]="selectedSize"
+              [swatches]="product.sizes"
+              (onSelect)="onSelectSize($event)"
+            ></app-swatches>
           </div>
         </ng-container>
         <div class="row flex-row align-items-center">

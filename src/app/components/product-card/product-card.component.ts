@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 
-import type { FAIconObject } from "../../types/faTypes";
-import type { IProductFetch } from "../../types/productTypes";
+import type { IProductFetch, IFAIconObject } from "../../types";
 
 @Component({
   selector: "app-product-card",
@@ -11,18 +10,27 @@ import type { IProductFetch } from "../../types/productTypes";
 export class ProductCardComponent implements OnInit {
   @Input() product: IProductFetch | undefined;
 
-  faRemoveBtnIcon: FAIconObject = {
+  faRemoveBtnIcon: IFAIconObject = {
     prefix: "far",
     iconName: "window-close",
   };
 
   isInCart = false;
-  showImage = true;
   isFavorite = true;
+  selectedColor = "";
+  selectedSize = "";
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.product?.colors) {
+      this.selectedColor = this.product.colors[0];
+    }
+
+    if (this.product?.sizes) {
+      this.selectedSize = String(this.product.sizes[0]);
+    }
+  }
 
   toggleFavorite(event: any) {
     if (event.preventDefault) {
@@ -31,7 +39,13 @@ export class ProductCardComponent implements OnInit {
     }
 
     this.isFavorite = !this.isFavorite;
+  }
 
-    console.log("this.isFavorite =-----> ", this.isFavorite);
+  onSelectSize(size: any): void {
+    this.selectedSize = size;
+  }
+
+  onSelectColor(color: any): void {
+    this.selectedColor = color;
   }
 }

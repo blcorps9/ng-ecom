@@ -6,7 +6,7 @@ import { RequestClientService } from "../../services/request-client/request-clie
 
 import * as actions from "../../store/actions/user.actions";
 
-import type { IAppStore } from "../../types/reduxTypes";
+import type { IAppStore } from "../../types";
 
 @Component({
   selector: "app-login",

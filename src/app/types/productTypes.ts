@@ -23,3 +23,10 @@ export type IProductFetch = {
   stock: number;
   updatedAt: string;
 };
+
+export type ISwatch = {
+  label: string;
+  value: string;
+  style: string;
+  isSelected: boolean;
+};

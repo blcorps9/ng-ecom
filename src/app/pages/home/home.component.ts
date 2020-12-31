@@ -3,8 +3,7 @@ import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
 import { RequestClientService } from "../../services/request-client/request-client.service";
 import * as actions from "./home.actions";
 
-import type { IAppStore } from "../../types/reduxTypes";
-import type { IProductFetch } from "../../types/productTypes";
+import type { IAppStore, IProductFetch } from "../../types";
 
 @Component({
   selector: "app-home",

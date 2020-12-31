@@ -1,6 +1,6 @@
 import * as actions from "./home.actions";
 
-import type { IReduxAction } from "../../types/reduxTypes";
+import type { IReduxAction } from "../../types";
 const initState = {
   data: [],
   error: null,

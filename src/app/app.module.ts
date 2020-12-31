@@ -24,6 +24,8 @@ import { PaymentCardsComponent } from "./components/payment-cards/payment-cards.
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { CurrencyInrPipe } from './pipes/currency-inr.pipe';
 import { FavoriteIconComponent } from './components/favorite-icon/favorite-icon.component';
+import { SwatchesComponent } from './components/swatches/swatches.component';
+import { IfInViewportDirective } from './directives/if-in-viewport/if-in-viewport.directive';
 
 const routes: Routes = [
   {
@@ -62,6 +64,8 @@ const store = configureStore();
     ProductCardComponent,
     CurrencyInrPipe,
     FavoriteIconComponent,
+    SwatchesComponent,
+    IfInViewportDirective,
   ],
   imports: [
     BrowserModule,
