@@ -1,3 +1,4 @@
+export * from "./commonTypes";
 export * from "./faTypes";
 export * from "./httpTypes";
 export * from "./productTypes";

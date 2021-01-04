@@ -11,6 +11,9 @@ import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 
 import { configureStore } from "./store";
 
+import { ReduxConnectService } from "./services/redux-connect/redux-connect.service";
+import { AuthGuard } from "./guards/auth/auth.guard";
+
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { LoginComponent } from "./pages/login/login.component";
@@ -21,11 +24,13 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { BrandsComponent } from "./components/brands/brands.component";
 import { InfoSectionComponent } from "./components/info-section/info-section.component";
 import { PaymentCardsComponent } from "./components/payment-cards/payment-cards.component";
-import { ProductCardComponent } from './components/product-card/product-card.component';
-import { CurrencyInrPipe } from './pipes/currency-inr.pipe';
-import { FavoriteIconComponent } from './components/favorite-icon/favorite-icon.component';
-import { SwatchesComponent } from './components/swatches/swatches.component';
-import { IfInViewportDirective } from './directives/if-in-viewport/if-in-viewport.directive';
+import { ProductCardComponent } from "./components/product-card/product-card.component";
+import { CurrencyInrPipe } from "./pipes/currency-inr.pipe";
+import { FavoriteIconComponent } from "./components/favorite-icon/favorite-icon.component";
+import { SwatchesComponent } from "./components/swatches/swatches.component";
+import { IfInViewportDirective } from "./directives/if-in-viewport/if-in-viewport.directive";
+import { MyAccountComponent } from "./pages/my-account/my-account.component";
+import { MyCartComponent } from "./pages/my-cart/my-cart.component";
 
 const routes: Routes = [
   {
@@ -40,6 +45,18 @@ const routes: Routes = [
   {
     path: "register",
     component: RegisterComponent,
+  },
+
+  // Secure Routes
+  {
+    path: "my-account",
+    component: MyAccountComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "my-cart",
+    component: MyCartComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: "**",
@@ -66,6 +83,8 @@ const store = configureStore();
     FavoriteIconComponent,
     SwatchesComponent,
     IfInViewportDirective,
+    MyAccountComponent,
+    MyCartComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,7 +102,7 @@ const store = configureStore();
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(library: FaIconLibrary) {
+  constructor(library: FaIconLibrary, rcs: ReduxConnectService) {
     library.addIconPacks(far, fas, fab);
   }
 }

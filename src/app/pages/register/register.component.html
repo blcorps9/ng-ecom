@@ -105,7 +105,11 @@
             <Hr />
             <div class="form-row justify-content-center mt-4">
               <div class="form-group col-6">
-                <a routerLink="/login" class="form-control btn btn-primary">
+                <a
+                  routerLink="/login"
+                  [queryParams]="returnTo"
+                  class="form-control btn btn-primary"
+                >
                   Already a user? Click here to Login.
                 </a>
               </div>

@@ -1,27 +1,42 @@
-import { Router } from "@angular/router";
-import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RequestClientService } from "../../services/request-client/request-client.service";
 
+import {
+  ReduxConnect,
+  IReduxConnect,
+} from "../../decorators/redux-connect/redux-connect.decorator";
 import * as actions from "../../store/actions/user.actions";
+import type { IReturnTo } from "../../types";
 
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+@ReduxConnect((state: any) => ({ products: state.home.data }))
+export class RegisterComponent implements IReduxConnect {
   profileForm: FormGroup;
+
+  returnTo: IReturnTo = { reqUrl: "/", reqQueryParams: "{}" };
   errorMessage: string = "";
 
   unsubscribe: any;
+  dispatch: any;
+  appStore: any;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private client: RequestClientService,
-    @Inject("AppStore") private appStore: any
+    private route: ActivatedRoute,
+    private client: RequestClientService
   ) {
+    this.route.queryParams.subscribe((p) => {
+      const { reqUrl = "/", reqQueryParams = "{}" } = p;
+
+      this.returnTo = { reqUrl, reqQueryParams };
+    });
     this.profileForm = this.fb.group({
       firstName: ["Saint", Validators.required],
       lastName: ["Walker", Validators.required],
@@ -32,23 +47,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.unsubscribe();
-  }
-
-  ngOnInit(): void {
-    this.unsubscribe = this.appStore.subscribe(() => {
-      const { user } = this.appStore.getState();
-
-      if (user.error) this.errorMessage = user.error.message || "";
-    });
-  }
-
   onSubmit() {
     if (this.profileForm.status === "VALID") {
       this.errorMessage = "";
 
-      this.appStore.dispatch(actions.userRegisterRequest());
+      this.dispatch(actions.userRegisterRequest());
 
       const {
         firstName,
@@ -71,11 +74,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
         })
         .subscribe(
           (resp: any) => {
-            this.appStore.dispatch(actions.userRegisterSuccess(resp.body.data));
-            this.router.navigateByUrl("/");
+            this.dispatch(actions.userRegisterSuccess(resp.body.data));
+            const { reqUrl, reqQueryParams } = this.returnTo;
+
+            this.router.navigate([reqUrl], {
+              queryParams: JSON.parse(reqQueryParams),
+            });
           },
           (error: any) => {
-            this.appStore.dispatch(actions.userRegisterFailure(error.error));
+            this.dispatch(actions.userRegisterFailure(error.error));
           }
         );
     }
