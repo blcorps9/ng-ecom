@@ -10,6 +10,29 @@ export const USER_REGISTER_REQUEST = "USER_REGISTER_REQUEST";
 export const USER_REGISTER_SUCCESS = "USER_REGISTER_SUCCESS";
 export const USER_REGISTER_FAILURE = "USER_REGISTER_FAILURE";
 
+export const GET_DASHBOARD_REQUEST = "GET_DASHBOARD_REQUEST";
+export const GET_DASHBOARD_SUCCESS = "GET_DASHBOARD_SUCCESS";
+export const GET_DASHBOARD_FAILURE = "GET_DASHBOARD_FAILURE";
+
+export const ADD_TO_CART_REQUEST = "ADD_TO_CART_REQUEST";
+export const ADD_TO_CART_SUCCESS = "ADD_TO_CART_SUCCESS";
+export const ADD_TO_CART_FAILURE = "ADD_TO_CART_FAILURE";
+
+export const REMOVE_FROM_CART_REQUEST = "REMOVE_FROM_CART_REQUEST";
+export const REMOVE_FROM_CART_SUCCESS = "REMOVE_FROM_CART_SUCCESS";
+export const REMOVE_FROM_CART_FAILURE = "REMOVE_FROM_CART_FAILURE";
+
+export const ADD_ITEM_TO_FAV_LIST_REQUEST = "ADD_ITEM_TO_FAV_LIST_REQUEST";
+export const ADD_ITEM_TO_FAV_LIST_SUCCESS = "ADD_ITEM_TO_FAV_LIST_SUCCESS";
+export const ADD_ITEM_TO_FAV_LIST_FAILURE = "ADD_ITEM_TO_FAV_LIST_FAILURE";
+
+export const REMOVE_ITEM_FROM_FAV_LIST_REQUEST =
+  "REMOVE_ITEM_FROM_FAV_LIST_REQUEST";
+export const REMOVE_ITEM_FROM_FAV_LIST_SUCCESS =
+  "REMOVE_ITEM_FROM_FAV_LIST_SUCCESS";
+export const REMOVE_ITEM_FROM_FAV_LIST_FAILURE =
+  "REMOVE_ITEM_FROM_FAV_LIST_FAILURE";
+
 export function userLoginRequest() {
   return { type: USER_LOGIN_REQUEST };
 }
@@ -38,4 +61,56 @@ export function userRegisterSuccess(payload: any) {
 }
 export function userRegisterFailure(error: any) {
   return { type: USER_REGISTER_FAILURE, error };
+}
+
+export function getDashboardRequest() {
+  return { type: GET_DASHBOARD_REQUEST };
+}
+export function getDashboardSuccess(payload: any) {
+  return { type: GET_DASHBOARD_SUCCESS, payload };
+}
+export function getDashboardFailure(error: any) {
+  return { type: GET_DASHBOARD_FAILURE, error };
+}
+
+export function addToCartRquest() {
+  return { type: ADD_TO_CART_REQUEST };
+}
+
+export function addToCartSuccess(payload: any) {
+  return { type: ADD_TO_CART_SUCCESS, payload };
+}
+export function addToCartFailure(error: any) {
+  return { type: ADD_TO_CART_FAILURE, error };
+}
+
+export function removeFromCartRquest() {
+  return { type: REMOVE_FROM_CART_REQUEST };
+}
+
+export function removeFromCartSuccess(payload: any) {
+  return { type: REMOVE_FROM_CART_SUCCESS, payload };
+}
+export function removeFromCartFailure(error: any) {
+  return { type: REMOVE_FROM_CART_FAILURE, error };
+}
+
+export function addToFavRequest() {
+  return { type: ADD_ITEM_TO_FAV_LIST_REQUEST };
+}
+export function addToFavSuccess(payload: any) {
+  return { type: ADD_ITEM_TO_FAV_LIST_SUCCESS, payload };
+}
+export function addToFavFailure(error: any) {
+  return { type: ADD_ITEM_TO_FAV_LIST_FAILURE, error };
+}
+
+export function removeFromFavRequest() {
+  return { type: REMOVE_ITEM_FROM_FAV_LIST_REQUEST };
+}
+export function removeFromFavSuccess(payload: any) {
+  return { type: REMOVE_ITEM_FROM_FAV_LIST_SUCCESS, payload };
+}
+export function removeFromFavFailure(error: any) {
+  return { type: REMOVE_ITEM_FROM_FAV_LIST_FAILURE, error };
 }

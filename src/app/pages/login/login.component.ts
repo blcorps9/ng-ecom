@@ -60,6 +60,15 @@ export class LoginComponent implements IReduxConnect {
         .subscribe(
           (resp: any) => {
             this.dispatch(actions.userLoginSuccess(resp.body.data));
+            this.dispatch(actions.getDashboardRequest());
+            this.client.get("/users/dashboard").subscribe(
+              (resp) => {
+                this.dispatch(actions.getDashboardSuccess(resp.body.data));
+              },
+              (error) => {
+                this.dispatch(actions.getDashboardFailure(error));
+              }
+            );
             const { reqUrl, reqQueryParams } = this.returnTo;
 
             this.router.navigate([reqUrl], {

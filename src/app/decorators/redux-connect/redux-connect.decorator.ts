@@ -1,6 +1,5 @@
 import { ReduxConnectService } from "../../services/redux-connect/redux-connect.service";
 
-// TODO: JS older-way of creating read-only properties.
 export interface IReduxConnect {
   appStore: any;
   dispatch: any;
@@ -8,7 +7,7 @@ export interface IReduxConnect {
 }
 
 export function ReduxConnect(
-  fn: (state: any) => Object,
+  fn?: (state: any) => Object,
   dispatchToProps?: { [actionCreater: string]: (...args: any) => void }
 ) {
   return function connect(constructor: Function): any {
@@ -16,8 +15,12 @@ export function ReduxConnect(
     const oNgOnDestroy = constructor.prototype.ngOnDestroy;
 
     constructor.prototype.ngOnInit = function (this: any) {
-      this.appStore = ReduxConnectService.getService();
-      this.dispatch = this.appStore.dispatch;
+      Object.defineProperty(this, "appStore", {
+        writable: false,
+        enumerable: false,
+        configurable: false,
+        value: ReduxConnectService.getService(),
+      });
 
       if (fn) {
         const states: any = fn(this.appStore.getState());
@@ -26,6 +29,29 @@ export function ReduxConnect(
           this[state] = states[state];
         }
       }
+
+      Object.defineProperties(this, {
+        dispatch: {
+          writable: false,
+          enumerable: false,
+          configurable: false,
+          value: this.appStore.dispatch,
+        },
+        unsubscribe: {
+          writable: false,
+          enumerable: false,
+          configurable: false,
+          value: this.appStore.subscribe(() => {
+            if (fn) {
+              const states: any = fn(this.appStore.getState());
+
+              for (const state in states) {
+                this[state] = states[state];
+              }
+            }
+          }),
+        },
+      });
 
       // if (dispatchToProps) {
       //   this.props = {};
@@ -38,16 +64,6 @@ export function ReduxConnect(
       //     };
       //   }
       // }
-
-      this.unsubscribe = this.appStore.subscribe(() => {
-        if (fn) {
-          const states: any = fn(this.appStore.getState());
-
-          for (const state in states) {
-            this[state] = states[state];
-          }
-        }
-      });
 
       if (oNgOnInit) oNgOnInit.call(this);
     };

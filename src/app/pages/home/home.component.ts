@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import * as _ from "lodash";
 
 import {
   ReduxConnect,
@@ -14,19 +15,30 @@ import type { IProductFetch } from "../../types";
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })
-@ReduxConnect((state: any) => ({ products: state.home.data }))
+@ReduxConnect((state: any) => ({
+  products: state.home.data,
+  cartItems: _.map(
+    _.get(state.user, ["cart", "items"], []),
+    (item: any) => item.id
+  ),
+  // favItems: _.map(
+  //   _.get(state.user, ["favItems", "items"], []),
+  //   (item: any) => item.id
+  // ),
+}))
 export class HomeComponent implements OnInit, IReduxConnect {
   appStore: any;
   dispatch: any;
   unsubscribe: any;
 
   products: IProductFetch[] = [];
+  cartItems: any[] = [];
+  // favItems: any[] = [];
 
   constructor(private httpClient: RequestClientService) {}
 
   ngOnInit(): void {
     this.dispatch(actions.getProductRequest());
-
     this.httpClient.get("/bns/search").subscribe(
       (resp) => {
         this.dispatch(actions.getProductSuccess(resp.body.data));
@@ -35,5 +47,15 @@ export class HomeComponent implements OnInit, IReduxConnect {
         this.dispatch(actions.getProductFailure(error));
       }
     );
+  }
+
+  isInCart(product: IProductFetch): boolean {
+    return _.includes(this.cartItems, product.id);
+  }
+
+  isFavorite(product: IProductFetch): boolean {
+    // TODO: It should look for fav items
+    // return _.includes(this.favItems, product.id);
+    return _.includes(this.cartItems, product.id);
   }
 }

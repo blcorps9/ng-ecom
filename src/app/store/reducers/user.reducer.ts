@@ -1,5 +1,6 @@
 import * as actions from "../actions/user.actions";
 import type { IReduxAction } from "../../types";
+import { ROUTE_CHANGE } from "../actions/common.actions";
 
 const initState = {
   profile: {},
@@ -20,8 +21,13 @@ const initState = {
 
 export function user(state = initState, action: IReduxAction) {
   switch (action.type) {
+    case ROUTE_CHANGE:
+      return {
+        ...state,
+        error: null,
+      };
     case actions.USER_LOGIN_REQUEST:
-      return { ...state, isFetching: true };
+      return { ...state, isFetching: true, error: null };
     case actions.USER_LOGIN_SUCCESS:
       return {
         ...state,
@@ -39,7 +45,7 @@ export function user(state = initState, action: IReduxAction) {
       };
 
     case actions.USER_LOGOUT_REQUEST:
-      return { ...state, isFetching: true };
+      return { ...state, isFetching: true, error: null };
     case actions.USER_LOGOUT_SUCCESS:
       return {
         ...state,
@@ -63,7 +69,7 @@ export function user(state = initState, action: IReduxAction) {
       };
 
     case actions.USER_REGISTER_REQUEST:
-      return { ...state, isFetching: true };
+      return { ...state, isFetching: true, error: null };
     case actions.USER_REGISTER_SUCCESS:
       return {
         ...state,
@@ -77,6 +83,77 @@ export function user(state = initState, action: IReduxAction) {
         ...state,
         isFetching: false,
         isLoggedIn: false,
+        error: action.error,
+      };
+
+    case actions.GET_DASHBOARD_REQUEST:
+      return {
+        ...state,
+        error: null,
+        isFetching: true,
+      };
+    case actions.GET_DASHBOARD_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+        isLoggedIn: true,
+        isFetching: false,
+      };
+    case actions.GET_DASHBOARD_FAILURE:
+      return {
+        ...state,
+        isLoggedIn: false,
+        isFetching: false,
+        // error: action.error, TODO: DONOT store the error as this is visible even w/o any user actions
+      };
+
+    case actions.ADD_TO_CART_REQUEST:
+      return {
+        ...state,
+        error: null,
+        isFetching: true,
+      };
+    case actions.ADD_TO_CART_FAILURE:
+      return {
+        ...state,
+        isFetching: true,
+        error: action.error,
+      };
+    case actions.ADD_TO_CART_SUCCESS: {
+      const cartCount = action.payload.items.reduce((p: number, c: any) => {
+        return p + Number(c.quantity || 0);
+      }, 0);
+
+      return {
+        ...state,
+        cartCount,
+        isFetching: true,
+        cart: action.payload,
+      };
+    }
+
+    case actions.REMOVE_FROM_CART_REQUEST:
+      return {
+        ...state,
+        error: null,
+        isFetching: true,
+      };
+    case actions.REMOVE_FROM_CART_SUCCESS:
+      const cartCount = action.payload.items.reduce((p: number, c: any) => {
+        return p + Number(c.quantity || 0);
+      }, 0);
+
+      return {
+        ...state,
+        cartCount,
+        isFetching: true,
+        cart: action.payload,
+      };
+
+    case actions.REMOVE_FROM_CART_FAILURE:
+      return {
+        ...state,
+        isFetching: true,
         error: action.error,
       };
     default:

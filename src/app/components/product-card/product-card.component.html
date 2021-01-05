@@ -66,13 +66,13 @@
           class="row cta m-0 flex-row align-items-center justify-content-between"
         >
           <div class="col-8 p-0">
-            <div onClick="{this.onAddToCart}" class="btn btn-primary">
+            <div (click)="onAddToCart($event)" class="btn btn-primary block">
               Add to cart
             </div>
           </div>
           <ng-container *ngIf="isInCart">
-            <div class="col-4 p-0" onClick="{this.onRemoveFromCart}">
-              <fa-icon [icon]="faRemoveBtnIcon"></fa-icon>
+            <div class="col-4 p-0" (click)="onRemoveFromCart($event)">
+              <fa-icon [icon]="faRemoveBtnIcon" size="3x"></fa-icon>
             </div>
           </ng-container>
         </div>

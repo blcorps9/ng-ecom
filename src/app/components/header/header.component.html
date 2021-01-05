@@ -24,13 +24,15 @@
           Cart
           <fa-icon icon="shopping-cart"></fa-icon>
 
-          <span class="badge badge-danger">12</span>
+          <span class="badge badge-danger" *ngIf="cartCount">{{
+            cartCount
+          }}</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/my-orders"> Orders </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isLoggedIn">
         <span class="nav-link"> Logout </span>
       </li>
     </ul>
