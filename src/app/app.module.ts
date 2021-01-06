@@ -31,6 +31,7 @@ import { SwatchesComponent } from "./components/swatches/swatches.component";
 import { IfInViewportDirective } from "./directives/if-in-viewport/if-in-viewport.directive";
 import { MyAccountComponent } from "./pages/my-account/my-account.component";
 import { MyCartComponent } from "./pages/my-cart/my-cart.component";
+import { AccordionComponent } from './components/accordion/accordion.component';
 
 const routes: Routes = [
   {
@@ -85,6 +86,7 @@ const store = configureStore();
     IfInViewportDirective,
     MyAccountComponent,
     MyCartComponent,
+    AccordionComponent,
   ],
   imports: [
     BrowserModule,

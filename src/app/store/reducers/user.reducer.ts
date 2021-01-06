@@ -156,6 +156,46 @@ export function user(state = initState, action: IReduxAction) {
         isFetching: true,
         error: action.error,
       };
+
+    case actions.ADD_ITEM_TO_FAV_LIST_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        error: null,
+      };
+    case actions.ADD_ITEM_TO_FAV_LIST_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        error: null,
+        favList: action.payload,
+      };
+    case actions.ADD_ITEM_TO_FAV_LIST_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
+
+    case actions.REMOVE_ITEM_FROM_FAV_LIST_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        error: null,
+      };
+    case actions.REMOVE_ITEM_FROM_FAV_LIST_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        error: null,
+        favList: action.payload,
+      };
+    case actions.REMOVE_ITEM_FROM_FAV_LIST_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
     default:
       return state;
   }

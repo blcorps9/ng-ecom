@@ -1,0 +1,34 @@
+<div class="accordion ml-3">
+  <div *ngFor="let cell of cells; index as cellId" class="card">
+    <div class="card-header p-1 row" (click)="onClickCell(cellId)">
+      <h2 class="col-9 mb-0">
+        <div class="btn btn-block text-left" type="button">
+          {{ cell.header }}
+        </div>
+      </h2>
+      <fa-icon class="col-2" [icon]="getCellIcon(cellId)"></fa-icon>
+    </div>
+    <div class="collapse" [ngClass]="{ show: cellId === this.openKey }">
+      <div class="card-body p-0">
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let item of cell.body" class="list-group-item">
+            <div class="input-group">
+              <label for="{{ cellId }}-{{ item }}" class="input-group-prepend">
+                <div class="input-group-text">
+                  <input
+                    (click)="onSelect(cellId, item, cell.radioBtn)"
+                    name="{{ cellId }}"
+                    id="{{ cellId }}-{{ item }}"
+                    defaultChecked="{isChecked}"
+                    type="{{ cell.radioBtn ? 'radio' : 'checkbox' }}"
+                  />
+                  &nbsp;&nbsp; {{ item }}
+                </div>
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

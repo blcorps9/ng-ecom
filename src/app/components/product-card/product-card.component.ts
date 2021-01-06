@@ -63,17 +63,38 @@ export class ProductCardComponent implements OnInit, IReduxConnect {
       event.stopPropagation();
     }
 
-    this.isFavorite = !this.isFavorite;
+    if (this.isLoggedIn && this.product) {
+      if (this.isFavorite) {
+        this.dispatch(actions.removeFromFavRequest());
+        this.http
+          .del(`/users/shopping-list/remove/${this.product.id}`)
+          .subscribe(
+            (resp: any) => {
+              this.dispatch(actions.removeFromFavSuccess(resp.body.data));
+            },
+            (error: any) => {
+              this.dispatch(actions.removeFromFavFailure(error));
+            }
+          );
+      } else {
+        const item: any = {
+          id: this.product.id,
+        };
 
-    // this.dispatch(actions.addToCartRquest());
-    // this.http.post("/users/shopping-cart/add", { data: item }).subscribe(
-    //   (resp: any) => {
-    //     this.dispatch(actions.addToCartSuccess(resp.body.data));
-    //   },
-    //   (error: any) => {
-    //     this.dispatch(actions.addToCartFailure(error));
-    //   }
-    // );
+        if (this.selectedColor) item.color = this.selectedColor;
+        if (this.selectedSize) item.size = this.selectedSize;
+
+        this.dispatch(actions.addToFavRequest());
+        this.http.post("/users/shopping-list/add", { data: item }).subscribe(
+          (resp: any) => {
+            this.dispatch(actions.addToFavSuccess(resp.body.data));
+          },
+          (error: any) => {
+            this.dispatch(actions.addToFavFailure(error));
+          }
+        );
+      }
+    }
   }
 
   onSelectSize(size: any): void {
@@ -87,8 +108,6 @@ export class ProductCardComponent implements OnInit, IReduxConnect {
   onAddToCart(event: any) {
     event.preventDefault();
     event.stopPropagation();
-
-    console.log("onAddToCart =-----> ", this.isLoggedIn);
 
     if (this.isLoggedIn) {
       const item: any = {
