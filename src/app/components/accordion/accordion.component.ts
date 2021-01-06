@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { ILeftNav } from "src/app/types";
+import { ILeftNav, IFAIconObject } from "src/app/types";
 
 @Component({
   selector: "app-accordion",
@@ -11,15 +11,15 @@ export class AccordionComponent {
 
   @Output() onSelection = new EventEmitter<any>();
 
-  openKey = "";
+  openKey: number = -1;
 
   constructor() {}
 
-  onClickCell(cellIndex: string) {
-    this.openKey = this.openKey === cellIndex ? "" : cellIndex;
+  onClickCell(cellIndex: number) {
+    this.openKey = this.openKey === cellIndex ? -1 : cellIndex;
   }
 
-  onSelect(cellIndex: number, cell: any, isRadio: boolean) {
+  onSelect(cellIndex: number, cell: any, isRadio: boolean | undefined) {
     this.onSelection.emit({
       cellIndex,
       cell,
@@ -28,10 +28,10 @@ export class AccordionComponent {
     });
   }
 
-  getCellIcon(cellIndex: string) {
+  getCellIcon(cellIndex: number) {
     return {
       prefix: "fas",
       iconName: cellIndex === this.openKey ? "chevron-up" : "chevron-down",
-    };
+    } as IFAIconObject;
   }
 }
