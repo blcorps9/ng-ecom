@@ -8,3 +8,8 @@ export type ILeftNav = {
   header: string;
   radioBtn?: boolean;
 };
+
+export type IDropdownOptions = {
+  label: string;
+  value: string | number;
+};

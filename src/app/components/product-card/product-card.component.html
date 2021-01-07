@@ -2,14 +2,14 @@
   <a class="product-card__wrapper" [routerLink]="product.detailsPage">
     <div class="product-card card m-2">
       <div class="card-img-top">
-        <ng-template [appIfInViewport]>
+        <!-- <ng-template [appIfInViewport]>
           <img
             [src]="product.image"
             height="100%"
             class="prod-img"
             [alt]="product.name"
           />
-        </ng-template>
+        </ng-template> -->
         <app-favorite-icon
           [isFavorite]="isFavorite"
           (click)="toggleFavorite($event)"

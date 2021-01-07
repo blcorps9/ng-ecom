@@ -31,7 +31,9 @@ import { SwatchesComponent } from "./components/swatches/swatches.component";
 import { IfInViewportDirective } from "./directives/if-in-viewport/if-in-viewport.directive";
 import { MyAccountComponent } from "./pages/my-account/my-account.component";
 import { MyCartComponent } from "./pages/my-cart/my-cart.component";
-import { AccordionComponent } from './components/accordion/accordion.component';
+import { AccordionComponent } from "./components/accordion/accordion.component";
+import { PdpComponent } from "./pages/pdp/pdp.component";
+import { DropdownComponent } from "./components/dropdown/dropdown.component";
 
 const routes: Routes = [
   {
@@ -46,6 +48,10 @@ const routes: Routes = [
   {
     path: "register",
     component: RegisterComponent,
+  },
+  {
+    path: "prod/:id/:category/:name",
+    component: PdpComponent,
   },
 
   // Secure Routes
@@ -87,6 +93,8 @@ const store = configureStore();
     MyAccountComponent,
     MyCartComponent,
     AccordionComponent,
+    PdpComponent,
+    DropdownComponent,
   ],
   imports: [
     BrowserModule,

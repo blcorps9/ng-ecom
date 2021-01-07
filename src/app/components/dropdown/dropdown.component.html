@@ -1,0 +1,14 @@
+<div class="btn-group" (click)="toggleOpen()">
+  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle">
+    {{ label }}
+  </button>
+  <div class="dropdown-menu" [ngClass]="{ show: isOpen }" [style]="styles">
+    <span
+      class="dropdown-item"
+      *ngFor="let o of options"
+      (click)="onClick($event, o)"
+    >
+      {{ o.label }}
+    </span>
+  </div>
+</div>

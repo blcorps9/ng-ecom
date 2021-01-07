@@ -1,0 +1,108 @@
+<div class="pdp-page row">
+  <ng-container *ngIf="product">
+    <div class="col-6">
+      <div class="row" style="height: 420px; margin: 0">
+        <div class="col-2">
+          <img
+            *ngFor="let altImg of productAltImg"
+            width="100%"
+            height="40px"
+            alt="{{ altImg.name }}"
+            src="{{ altImg.src }}"
+            class="pdp-alt-img my-1"
+          />
+        </div>
+        <div class="col-10">
+          <img
+            src="{{ product.image }}"
+            alt="{{ product.name }}"
+            class="pdp-img"
+            height="100%"
+            width="100%"
+          />
+          <app-favorite-icon
+            [isFavorite]="isFavorite"
+            (click)="toggleFavorite()"
+          ></app-favorite-icon>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <h1>{{ product.name }}</h1>
+      <h4>{{ product.brand }}</h4>
+      <h5 *ngIf="product.promo" class="badge badge-danger">
+        {{ product.promo }}
+      </h5>
+      <hr />
+      <div class="row">
+        <div
+          class="p-0"
+          [ngClass]="{ 'text-secondary': product.salePrice }"
+          [style]="getPriceStyle()"
+        >
+          {{ product.price | currencyInr }}
+        </div>
+        <div class="ml-2 p-0 text-danger" *ngIf="product.salePrice">
+          {{ product.salePrice | currencyInr }}
+        </div>
+      </div>
+      <ng-container *ngIf="product.colors">
+        <app-swatches
+          *ngIf="selectedColor"
+          type="color"
+          heading="Colors"
+          [current]="selectedColor"
+          [swatches]="product.colors"
+          (onSelect)="onSelectColor($event)"
+        ></app-swatches>
+      </ng-container>
+      <ng-container *ngIf="product.sizes">
+        <app-swatches
+          *ngIf="selectedSize"
+          type="size"
+          heading="Sizes"
+          [current]="selectedSize"
+          [swatches]="product.sizes"
+          (onSelect)="onSelectSize($event)"
+        ></app-swatches>
+      </ng-container>
+
+      <div class="my-2">
+        <div>Quantity</div>
+        <app-dropdown
+          [label]="selectedQuantity"
+          [options]="dropdownOptions"
+          (onSelect)="onSelectQuantity($event)"
+          styles="height: 140px; overflow: hidden scroll;"
+        ></app-dropdown>
+      </div>
+
+      <div class="row flex-row align-items-center justify-content-between">
+        <div class="col-5 p-0">
+          <div onClick="{this.onAddToCart}" class="btn btn-primary w-100">
+            Add to cart
+          </div>
+        </div>
+        <div class="col-5 px-5" *ngIf="isInCart">
+          <div
+            onClick="{this.onRemoveFromCart}"
+            class="btn btn-secondary w-100"
+          >
+            Remove From cart
+          </div>
+        </div>
+      </div>
+      <hr />
+
+      <div class="row product-description">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis totam
+        pariatur eos. Modi placeat vel ex voluptas. Facilis, cum fuga vero
+        dolorum iure, error reiciendis quas nobis tempore esse nam. Lorem ipsum
+        dolor sit, amet consectetur adipisicing elit. Aliquid libero repudiandae
+        minus harum nisi, ratione architecto voluptas mollitia quis eos possimus
+        consectetur ipsa autem, dignissimos culpa illum alias doloremque.
+        Reiciendis.
+      </div>
+    </div>
+  </ng-container>
+</div>

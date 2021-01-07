@@ -19,7 +19,7 @@ export type IProductFetch = {
   reviews: number;
   salePrice?: number;
   colors?: string[];
-  sizes?: number[];
+  sizes?: number[] | string[];
   stock: number;
   updatedAt: string;
 };
@@ -29,4 +29,9 @@ export type ISwatch = {
   value: string;
   style: string;
   isSelected: boolean;
+};
+
+export type IProductAltImg = {
+  name: string;
+  src: string;
 };
