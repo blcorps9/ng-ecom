@@ -12,7 +12,7 @@ export class DropdownComponent {
 
   @Input() options: IDropdownOptions[] = [];
   @Input() styles: string = "";
-  @Input() label: string = "";
+  @Input() label: string | number = "";
 
   @Output() onSelect = new EventEmitter<IDropdownOptions>();
 
