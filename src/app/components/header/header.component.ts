@@ -1,6 +1,9 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 import { FormBuilder, FormGroup } from "@angular/forms";
 
+import { RequestClientService } from "../../services/request-client/request-client.service";
+import * as actions from "../../store/actions/user.actions";
 import {
   ReduxConnect,
   IReduxConnect,
@@ -25,7 +28,11 @@ export class HeaderComponent implements IReduxConnect {
   cartCount = 0;
   isLoggedIn = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private http: RequestClientService,
+    private router: Router
+  ) {
     this.searchForm = this.fb.group({
       query: "",
     });
@@ -34,6 +41,21 @@ export class HeaderComponent implements IReduxConnect {
   onSubmit() {
     if (this.searchForm?.status === "VALID") {
       console.log(" onSubmit =---- > ", this.searchForm?.value);
+    }
+  }
+
+  onLogout() {
+    if (this.isLoggedIn) {
+      this.dispatch(actions.userLogoutRequest());
+      this.http.get("/auth/logout").subscribe(
+        () => {
+          this.dispatch(actions.userLogoutSuccess());
+          this.router.navigateByUrl("/");
+        },
+        (err) => {
+          this.dispatch(actions.userLogoutFailure(err));
+        }
+      );
     }
   }
 }

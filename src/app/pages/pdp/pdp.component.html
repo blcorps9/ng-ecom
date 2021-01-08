@@ -79,13 +79,13 @@
 
       <div class="row flex-row align-items-center justify-content-between">
         <div class="col-5 p-0">
-          <div onClick="{this.onAddToCart}" class="btn btn-primary w-100">
+          <div (click)="onAddToCart($event)" class="btn btn-primary w-100">
             Add to cart
           </div>
         </div>
         <div class="col-5 px-5" *ngIf="isInCart">
           <div
-            onClick="{this.onRemoveFromCart}"
+            (click)="onRemoveFromCart($event)"
             class="btn btn-secondary w-100"
           >
             Remove From cart

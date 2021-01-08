@@ -1,8 +1,13 @@
 import * as _ from "lodash";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { RequestClientService } from "../../services/request-client/request-client.service";
+import * as actions from "../../store/actions/user.actions";
+import {
+  ReduxConnect,
+  IReduxConnect,
+} from "../../decorators/redux-connect/redux-connect.decorator";
 
 import { IProductFetch, IProductAltImg, IDropdownOptions } from "../../types";
 
@@ -11,7 +16,16 @@ import { IProductFetch, IProductAltImg, IDropdownOptions } from "../../types";
   templateUrl: "./pdp.component.html",
   styleUrls: ["./pdp.component.scss"],
 })
-export class PdpComponent implements OnInit {
+@ReduxConnect((state) => {
+  return {
+    isLoggedIn: state.user.isLoggedIn,
+  };
+})
+export class PdpComponent implements OnInit, IReduxConnect {
+  appStore: any;
+  dispatch: any;
+  unsubscribe: any;
+
   product: IProductFetch | null = null;
 
   selectedQuantity: number = 1;
@@ -21,10 +35,12 @@ export class PdpComponent implements OnInit {
   productAltImg: IProductAltImg[] = [];
   dropdownOptions: IDropdownOptions[] = [];
 
+  isLoggedIn = false;
   isFavorite = false;
   isInCart = false;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private http: RequestClientService
   ) {
@@ -59,6 +75,8 @@ export class PdpComponent implements OnInit {
                   } as IDropdownOptions;
                 }
               );
+
+              this.checkIsInCartAndFavorite(this.appStore?.getState());
             }
           },
           (error: any) => console.error("error =-----> ", error)
@@ -67,15 +85,76 @@ export class PdpComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.checkIsInCartAndFavorite(this.appStore.getState());
+
+    this.appStore.subscribe(() => {
+      this.checkIsInCartAndFavorite(this.appStore.getState());
+    });
+  }
 
   getPriceStyle() {
     return this.product?.salePrice ? "text-decoration: line-through;" : "";
   }
 
+  checkIsInCartAndFavorite(state: any) {
+    const cartItems = _.map(
+      _.get(state.user, ["cart", "items"], []),
+      (item: any) => item.id
+    );
+
+    const favItems = _.map(
+      _.get(state.user, ["favList", "items"], []),
+      (item: any) => item.id
+    );
+
+    this.isFavorite = favItems.includes(this.product?.id);
+    this.isInCart = cartItems.includes(this.product?.id);
+  }
+
+  navigateToLogin() {
+    this.router.navigate(["/login"], {
+      queryParams: {
+        reqUrl: this.router.url,
+      },
+    });
+  }
+
   toggleFavorite(): void {
-    // TODO: Make api call
-    this.isFavorite = !this.isFavorite;
+    if (this.isLoggedIn && this.product) {
+      if (this.isFavorite) {
+        this.dispatch(actions.removeFromFavRequest());
+        this.http
+          .del(`/users/shopping-list/remove/${this.product.id}`)
+          .subscribe(
+            (resp: any) => {
+              this.dispatch(actions.removeFromFavSuccess(resp.body.data));
+            },
+            (error: any) => {
+              this.dispatch(actions.removeFromFavFailure(error));
+            }
+          );
+      } else {
+        const item: any = {
+          id: this.product.id,
+        };
+
+        if (this.selectedColor) item.color = this.selectedColor;
+        if (this.selectedSize) item.size = this.selectedSize;
+
+        this.dispatch(actions.addToFavRequest());
+        this.http.post("/users/shopping-list/add", { data: item }).subscribe(
+          (resp: any) => {
+            this.dispatch(actions.addToFavSuccess(resp.body.data));
+          },
+          (error: any) => {
+            this.dispatch(actions.addToFavFailure(error));
+          }
+        );
+      }
+    } else {
+      this.navigateToLogin();
+    }
   }
 
   onSelectColor(color: string) {
@@ -88,5 +167,54 @@ export class PdpComponent implements OnInit {
 
   onSelectQuantity(opt: IDropdownOptions) {
     this.selectedQuantity = Number(opt.value);
+  }
+
+  onAddToCart(event: any) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    if (this.isLoggedIn) {
+      const item: any = {
+        id: this.product?.id,
+        price: this.product?.price,
+        quantity: this.selectedQuantity,
+      };
+
+      if (this.selectedColor) item.color = this.selectedColor;
+      if (this.selectedSize) item.size = this.selectedSize;
+
+      this.dispatch(actions.addToCartRquest());
+      this.http.post("/users/shopping-cart/add", { data: item }).subscribe(
+        (resp: any) => {
+          this.dispatch(actions.addToCartSuccess(resp.body.data));
+        },
+        (error: any) => {
+          this.dispatch(actions.addToCartFailure(error));
+        }
+      );
+    } else {
+      this.navigateToLogin();
+    }
+  }
+
+  onRemoveFromCart(event: any) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    if (this.product) {
+      this.dispatch(actions.removeFromCartRquest());
+      this.http.del(`/users/shopping-cart/${this.product.id}`).subscribe(
+        (resp: any) => {
+          this.dispatch(actions.removeFromCartSuccess(resp.body.data));
+        },
+        (error: any) => {
+          this.dispatch(actions.removeFromCartFailure(error));
+        }
+      );
+    }
   }
 }

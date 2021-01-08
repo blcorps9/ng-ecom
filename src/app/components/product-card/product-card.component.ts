@@ -94,6 +94,8 @@ export class ProductCardComponent implements OnInit, IReduxConnect {
           }
         );
       }
+    } else {
+      this.router.navigateByUrl("/login");
     }
   }
 

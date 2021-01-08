@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Routes, RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
@@ -11,6 +11,7 @@ import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 
 import { configureStore } from "./store";
 
+import { InterceptorService } from "./services/interceptor/interceptor.service";
 import { ReduxConnectService } from "./services/redux-connect/redux-connect.service";
 import { AuthGuard } from "./guards/auth/auth.guard";
 
@@ -34,6 +35,7 @@ import { MyCartComponent } from "./pages/my-cart/my-cart.component";
 import { AccordionComponent } from "./components/accordion/accordion.component";
 import { PdpComponent } from "./pages/pdp/pdp.component";
 import { DropdownComponent } from "./components/dropdown/dropdown.component";
+import { SpinnerComponent } from "./components/spinner/spinner.component";
 
 const routes: Routes = [
   {
@@ -95,6 +97,7 @@ const store = configureStore();
     AccordionComponent,
     PdpComponent,
     DropdownComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +110,11 @@ const store = configureStore();
     {
       provide: "AppStore",
       useValue: store,
+    },
+    {
+      multi: true,
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
     },
   ],
   bootstrap: [AppComponent],

@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Component } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 
 import { RequestClientService } from "../../services/request-client/request-client.service";
 
@@ -17,14 +17,19 @@ import type { IReturnTo } from "../../types";
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
-@ReduxConnect((state) => ({ errorMessage: state.user.error?.message }))
-export class LoginComponent implements IReduxConnect {
+@ReduxConnect((state) => ({
+  isLoggedIn: state.user.isLoggedIn,
+  errorMessage: state.user.error?.message,
+}))
+export class LoginComponent implements IReduxConnect, OnInit, OnDestroy {
   profileForm: FormGroup;
 
   returnTo: IReturnTo = { reqUrl: "/", reqQueryParams: "{}" };
 
   errorMessage: string = "";
+  isLoggedIn = false;
 
+  unsubscribe$: any;
   unsubscribe: any;
   dispatch: any;
   appStore: any;
@@ -44,6 +49,28 @@ export class LoginComponent implements IReduxConnect {
     this.profileForm = this.fb.group({
       username: ["saint@walker.com", [Validators.required, Validators.email]],
       password: ["123456", Validators.required],
+    });
+  }
+
+  ngOnInit() {
+    this.unsubscribe$ = this.appStore.subscribe(() => {
+      const { user } = this.appStore.getState();
+
+      if (user.isLoggedIn) {
+        this.navigateBack();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$();
+  }
+
+  navigateBack() {
+    const { reqUrl, reqQueryParams } = this.returnTo;
+
+    this.router.navigate([reqUrl], {
+      queryParams: JSON.parse(reqQueryParams),
     });
   }
 
@@ -69,11 +96,8 @@ export class LoginComponent implements IReduxConnect {
                 this.dispatch(actions.getDashboardFailure(error));
               }
             );
-            const { reqUrl, reqQueryParams } = this.returnTo;
 
-            this.router.navigate([reqUrl], {
-              queryParams: JSON.parse(reqQueryParams),
-            });
+            this.navigateBack();
           },
           (error: any) => {
             this.dispatch(actions.userLoginFailure(error.error));

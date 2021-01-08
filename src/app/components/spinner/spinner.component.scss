@@ -1,0 +1,33 @@
+.spinner-backdrop {
+  z-index: 1021;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+
+  &.show {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 2px solid #fff;
+    border-bottom: 2px solid #333;
+    border-radius: 50%;
+
+    animation: spinAround 1s ease-in-out infinite;
+  }
+
+  @keyframes spinAround {
+    to {
+      transform: rotate(2turn);
+    }
+  }
+}
