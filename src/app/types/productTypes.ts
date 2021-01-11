@@ -35,3 +35,14 @@ export type IProductAltImg = {
   name: string;
   src: string;
 };
+
+export type ICartItem = {
+  brand: string;
+  id: string;
+  image: string;
+  name: string;
+  price: number;
+  quantity: number;
+  size?: string;
+  color?: string;
+};

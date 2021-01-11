@@ -1,0 +1,25 @@
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col" *ngFor="let h of tabHeader">{{ h }}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let i of items; index as itemNo">
+      <th scope="row">{{ itemNo + 1 }}</th>
+      <td>{{ i.name }}</td>
+      <td>{{ i.brand }}</td>
+      <td>{{ i.quantity }}</td>
+      <td>{{ i.price | currencyInr }}</td>
+
+      <td *ngIf="hasSize">{{ i.size }}</td>
+      <td *ngIf="hasColor">{{ i.color }}</td>
+      <td *ngIf="!noAction">
+        <span (click)="onClick(i)" class="btn btn-primary">
+          {{ actionLabel }}
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -36,6 +36,7 @@ import { AccordionComponent } from "./components/accordion/accordion.component";
 import { PdpComponent } from "./pages/pdp/pdp.component";
 import { DropdownComponent } from "./components/dropdown/dropdown.component";
 import { SpinnerComponent } from "./components/spinner/spinner.component";
+import { ItemTableComponent } from './components/item-table/item-table.component';
 
 const routes: Routes = [
   {
@@ -98,6 +99,7 @@ const store = configureStore();
     PdpComponent,
     DropdownComponent,
     SpinnerComponent,
+    ItemTableComponent,
   ],
   imports: [
     BrowserModule,
