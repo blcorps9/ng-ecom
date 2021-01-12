@@ -45,4 +45,5 @@ export type ICartItem = {
   quantity: number;
   size?: string;
   color?: string;
+  salePrice?: number;
 };

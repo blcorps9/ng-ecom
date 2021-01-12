@@ -36,7 +36,10 @@ import { AccordionComponent } from "./components/accordion/accordion.component";
 import { PdpComponent } from "./pages/pdp/pdp.component";
 import { DropdownComponent } from "./components/dropdown/dropdown.component";
 import { SpinnerComponent } from "./components/spinner/spinner.component";
-import { ItemTableComponent } from './components/item-table/item-table.component';
+import { ItemTableComponent } from "./components/item-table/item-table.component";
+import { DeliveryComponent } from "./pages/delivery/delivery.component";
+import { AddressCardComponent } from "./components/address-card/address-card.component";
+import { AddressFormComponent } from "./components/address-form/address-form.component";
 
 const routes: Routes = [
   {
@@ -66,6 +69,11 @@ const routes: Routes = [
   {
     path: "my-cart",
     component: MyCartComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "delivery",
+    component: DeliveryComponent,
     canActivate: [AuthGuard],
   },
   {
@@ -100,6 +108,9 @@ const store = configureStore();
     DropdownComponent,
     SpinnerComponent,
     ItemTableComponent,
+    DeliveryComponent,
+    AddressCardComponent,
+    AddressFormComponent,
   ],
   imports: [
     BrowserModule,

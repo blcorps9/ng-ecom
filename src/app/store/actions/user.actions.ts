@@ -33,6 +33,18 @@ export const REMOVE_ITEM_FROM_FAV_LIST_SUCCESS =
 export const REMOVE_ITEM_FROM_FAV_LIST_FAILURE =
   "REMOVE_ITEM_FROM_FAV_LIST_FAILURE";
 
+export const SAVE_ADDRESS_REQUEST = "SAVE_ADDRESS_REQUEST";
+export const SAVE_ADDRESS_SUCCESS = "SAVE_ADDRESS_SUCCESS";
+export const SAVE_ADDRESS_FAILURE = "SAVE_ADDRESS_FAILURE";
+
+export const UPDATE_ADDRESS_REQUEST = "UPDATE_ADDRESS_REQUEST";
+export const UPDATE_ADDRESS_SUCCESS = "UPDATE_ADDRESS_SUCCESS";
+export const UPDATE_ADDRESS_FAILURE = "UPDATE_ADDRESS_FAILURE";
+
+export const DELETE_ADDRESS_REQUEST = "DELETE_ADDRESS_REQUEST";
+export const DELETE_ADDRESS_SUCCESS = "DELETE_ADDRESS_SUCCESS";
+export const DELETE_ADDRESS_FAILURE = "DELETE_ADDRESS_FAILURE";
+
 export function userLoginRequest() {
   return { type: USER_LOGIN_REQUEST };
 }
@@ -113,4 +125,34 @@ export function removeFromFavSuccess(payload: any) {
 }
 export function removeFromFavFailure(error: any) {
   return { type: REMOVE_ITEM_FROM_FAV_LIST_FAILURE, error };
+}
+
+export function saveAddressRequest() {
+  return { type: SAVE_ADDRESS_REQUEST };
+}
+export function saveAddressSuccess(payload: any) {
+  return { type: SAVE_ADDRESS_SUCCESS, payload };
+}
+export function saveAddressFailure(error: any) {
+  return { type: SAVE_ADDRESS_FAILURE, error };
+}
+
+export function updateAddressRequest() {
+  return { type: UPDATE_ADDRESS_REQUEST };
+}
+export function updateAddressSuccess(payload: any) {
+  return { type: UPDATE_ADDRESS_SUCCESS, payload };
+}
+export function updateAddressFailure(error: any) {
+  return { type: UPDATE_ADDRESS_FAILURE, error };
+}
+
+export function deleteAddressRequest() {
+  return { type: DELETE_ADDRESS_REQUEST };
+}
+export function deleteAddressSuccess(payload: any) {
+  return { type: DELETE_ADDRESS_SUCCESS, payload };
+}
+export function deleteAddressFailure(error: any) {
+  return { type: DELETE_ADDRESS_FAILURE, error };
 }

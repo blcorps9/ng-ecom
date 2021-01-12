@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <span>{{ address.line1 }}</span>
+    <span>
+      <span (click)="_onEdit()" style="cursor: pointer">
+        <fa-icon [icon]="faEditIcon"></fa-icon>
+      </span>
+      &nbsp;&nbsp;&nbsp;
+      <span (click)="_onDelete()" style="cursor: pointer">
+        <fa-icon [icon]="faTrashIcon"></fa-icon>
+      </span>
+    </span>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ address.fullName }} - {{ address.contactNo }}</h5>
+    <p class="card-text">
+      {{ getAddrLines() }}
+    </p>
+    <p class="card-text">
+      {{ getAddrCity() }}
+    </p>
+    <div (click)="_onSelect()" class="btn btn-primary">
+      Deliver to this address
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="delivery-page px-5">
+  <div class="row mx-2 my-3 justify-content-between">
+    <div class="col-auto btn-primary">Saved addresses</div>
+    <div class="col-auto btn btn-primary" (click)="toggleAddressForm()">
+      Add new address
+    </div>
+  </div>
+  <div class="row">
+    <app-address-card
+      class="col-12"
+      *ngFor="let address of addresses"
+      [address]="address"
+      (onEdit)="onClickEdit($event)"
+      (onDelete)="onClickDelete($event)"
+      (onSelect)="onAddressSelect($event)"
+    ></app-address-card>
+  </div>
+  <ng-container *ngIf="showForm">
+    <div class="row m-5">
+      <h2 class="col-12 mb-4">
+        {{ isEdit ? "Edit Address" : "Add new Address" }}
+      </h2>
+      <app-address-form
+        style="width: 100%"
+        [isEdit]="isEdit"
+        [address]="addressToBeEdited"
+        (onSubmit)="onSaveAddress($event)"
+      ></app-address-form>
+    </div>
+  </ng-container>
+</div>

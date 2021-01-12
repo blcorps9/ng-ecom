@@ -1,0 +1,117 @@
+<form
+  class="address-form"
+  [formGroup]="addressForm"
+  style="width: 100%"
+  (submit)="_onSubmit()"
+>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label htmlFor="firstName">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="firstName"
+        formControlName="firstName"
+        required
+      />
+    </div>
+    <div class="form-group col-md-6">
+      <label htmlFor="lastName">Last Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="lastName"
+        formControlName="lastName"
+        required
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="contactNo">Contact No</label>
+    <input
+      type="text"
+      class="form-control"
+      id="contactNo"
+      formControlName="contactNo"
+      placeholder="9123456789"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label htmlFor="line1">Address Ln 1</label>
+    <input
+      type="text"
+      class="form-control"
+      id="line1"
+      formControlName="line1"
+      placeholder="1234 Main St"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label htmlFor="line2">Address Ln 2</label>
+    <input
+      type="text"
+      class="form-control"
+      id="line2"
+      formControlName="line2"
+      placeholder="Apartment, studio, or floor"
+    />
+  </div>
+  <div class="form-group">
+    <label htmlFor="street">Street</label>
+    <input
+      type="text"
+      class="form-control"
+      id="street"
+      formControlName="street"
+      placeholder="M G Road"
+      required
+    />
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label htmlFor="city">City</label>
+      <input
+        type="text"
+        class="form-control"
+        id="city"
+        formControlName="city"
+        required
+      />
+    </div>
+    <div class="form-group col-md-4">
+      <label htmlFor="state">State</label>
+      <select id="state" class="form-control" formControlName="state" required>
+        <option selected>Choose state...</option>
+        <option *ngFor="let s of states" value="{{ s.value }}">
+          {{ s.label }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+      <label htmlFor="postalCode">Postal Code</label>
+      <input
+        type="text"
+        class="form-control"
+        id="postalCode"
+        formControlName="postalCode"
+        required
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="isDefault"
+        formControlName="isDefault"
+      />
+      <label class="form-check-label" htmlFor="isDefault">
+        Save as default
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>

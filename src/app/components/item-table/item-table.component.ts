@@ -34,6 +34,10 @@ export class ItemTableComponent implements OnInit {
     if (!this.noAction) this.tabHeader.push("Action");
   }
 
+  isOnSale(item: ICartItem) {
+    return !!item.salePrice;
+  }
+
   onClick(event: any) {
     this.onAction.emit(event);
   }

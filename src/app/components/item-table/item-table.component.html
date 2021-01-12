@@ -11,7 +11,15 @@
       <td>{{ i.name }}</td>
       <td>{{ i.brand }}</td>
       <td>{{ i.quantity }}</td>
-      <td>{{ i.price | currencyInr }}</td>
+      <td>
+        <span *ngIf="!isOnSale(i)">{{ i.price | currencyInr }}</span>
+        <ng-container *ngIf="isOnSale(i)">
+          <span style="text-decoration: line-through">
+            {{ i.price | currencyInr }}
+          </span>
+          <span class="text-danger">{{ i.salePrice | currencyInr }}</span>
+        </ng-container>
+      </td>
 
       <td *ngIf="hasSize">{{ i.size }}</td>
       <td *ngIf="hasColor">{{ i.color }}</td>
