@@ -18,7 +18,7 @@ export class DeliveryComponent implements OnInit {
   showForm = false;
   isEdit = false;
 
-  addressToBeEdited: any;
+  addressToBeEdited: any = null;
 
   constructor(private http: RequestClientService) {}
 

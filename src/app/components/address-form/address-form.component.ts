@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, Input } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
@@ -9,6 +9,9 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 export class AddressFormComponent implements OnInit {
   addressForm: FormGroup;
   states = [{ value: "KN", label: "Karnataka" }];
+
+  @Input() address: any = null;
+  @Input() isEdit: boolean = false;
 
   @Output() onSubmit = new EventEmitter<any>();
 
