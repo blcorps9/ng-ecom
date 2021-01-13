@@ -13,3 +13,18 @@ export type IDropdownOptions = {
   label: string;
   value: string | number;
 };
+
+export type IAddressFields = {
+  id?: string;
+  contactNo: string;
+  line1: string;
+  line2: string;
+  street: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  isDefault: boolean;
+  firstName?: string;
+  lastName?: string;
+  fullName?: string;
+};

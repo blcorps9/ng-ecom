@@ -51,7 +51,7 @@ import type { ICartItem } from "../../types";
     products,
     orderTotal,
     orderTotalSale,
-    isCartEmpty: products.length === 0,
+    isCartEmpty: products && products.length === 0,
   };
 }) // Advance typescript
 // @ReduxConnect((state) => ({

@@ -1,0 +1,88 @@
+<div
+  class="card"
+  onMouseEnter="{this.onMouseEnter}"
+  onMouseLeave="{this.onMouseLeave}"
+  *ngIf="card"
+>
+  <div class="card-header d-flex justify-content-between">
+    <span>{{ card.holderName }}</span>
+    <span>
+      <span (click)="_onEdit()" style="cursor: pointer">
+        <fa-icon [icon]="faEditIcon"></fa-icon>
+      </span>
+      &nbsp;&nbsp;&nbsp;
+      <span (click)="_onDelete()" style="cursor: pointer">
+        <fa-icon [icon]="faTrashIcon"></fa-icon>
+      </span>
+    </span>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">
+      <!-- TODO: Creat pipe for `maskCardNumber` -->
+      {{ card.holderName }} - {{ card.cardNumber }}
+    </h5>
+
+    <!-- TODO: Template -->
+
+    <!-- <form (submit)="_onPayNow()">
+      <div class="form-row" *ngIf="showSecurityFields">
+        <div class="form-group col-4">
+          <label htmlFor="cvv">CVV</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cvv"
+            required
+            name="cvv"
+            minLength="{3}"
+            maxLength="{3}"
+            placeholder="123"
+            onKeyUp="{this.onKeyUp}"
+          />
+        </div>
+        <div class="form-group col-4">
+          <label htmlFor="expiryMonth">Expiry Month</label>
+          <select id="expiryMonth" name="expiryMonth" class="form-control">
+            <option [value]="i" *ngFor="let m of months; index as i">
+              {{ m }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-4">
+          <label htmlFor="expiryYear">Expiry Year</label>
+          <select
+            required
+            id="expiryYear"
+            name="expiryYear"
+            class="form-control"
+          >
+            <option [value]="y" *ngFor="let y of getValidCCYears()">
+              {{ y }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <input
+        readOnly
+        type="text"
+        id="card-id"
+        name="cardId"
+        value="{card.id}"
+        style="display: none"
+      />
+
+      <button
+        id="pay-now"
+        type="submit"
+        data-value="{card.id}"
+        [disabled]="!hasValue"
+        class="btn"
+        [ngClass]="{ 'btn-primary': hasValue, 'btn-secondary': !hasValue }"
+        [style]="getSubmitBtnStyles()"
+      >
+        {{ hasValue ? "Pay Now" : "Pay with this card" }}
+      </button>
+    </form> -->
+  </div>
+</div>

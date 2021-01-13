@@ -1,0 +1,28 @@
+<div class="payment-page px-5">
+  <div class="row mx-2 my-3 justify-content-between">
+    <div class="col-auto btn-primary">Saved Cards</div>
+    <div class="col-auto btn btn-primary" (click)="toggleCardForm()">
+      Add new card
+    </div>
+  </div>
+  <div class="row">
+    <div *ngFor="let card of cards" class="col-12 my-2">
+      <app-card-card
+        [card]="card"
+        (onPayNow)="onPayNow($event)"
+        (onEdit)="onClickEdit($event)"
+        (onDelete)="onClickDelete($event)"
+      ></app-card-card>
+    </div>
+  </div>
+
+  <div class="row m-5" *ngIf="showForm">
+    <h2 class="col-12">{{ isEdit ? "Edit Card" : "Add new Card" }}</h2>
+    <app-card-form
+      class="col-12"
+      [isEdit]="isEdit"
+      [card]="cardToBeEdited"
+      (onSubmit)="onSubmit($event)"
+    ></app-card-form>
+  </div>
+</div>

@@ -45,6 +45,20 @@ export const DELETE_ADDRESS_REQUEST = "DELETE_ADDRESS_REQUEST";
 export const DELETE_ADDRESS_SUCCESS = "DELETE_ADDRESS_SUCCESS";
 export const DELETE_ADDRESS_FAILURE = "DELETE_ADDRESS_FAILURE";
 
+export const SAVE_CHECKOUT_DATA = "SAVE_CHECKOUT_DATA";
+
+export const SAVE_CARDS_REQUEST = "SAVE_CARDS_REQUEST";
+export const SAVE_CARDS_SUCCESS = "SAVE_CARDS_SUCCESS";
+export const SAVE_CARDS_FAILURE = "SAVE_CARDS_FAILURE";
+
+export const DELETE_CARD_REQUEST = "DELETE_CARD_REQUEST";
+export const DELETE_CARD_SUCCESS = "DELETE_CARD_SUCCESS";
+export const DELETE_CARD_FAILURE = "DELETE_CARD_FAILURE";
+
+export const UPDATE_CARD_REQUEST = "UPDATE_CARD_REQUEST";
+export const UPDATE_CARD_SUCCESS = "UPDATE_CARD_SUCCESS";
+export const UPDATE_CARD_FAILURE = "UPDATE_CARD_FAILURE";
+
 export function userLoginRequest() {
   return { type: USER_LOGIN_REQUEST };
 }
@@ -155,4 +169,38 @@ export function deleteAddressSuccess(payload: any) {
 }
 export function deleteAddressFailure(error: any) {
   return { type: DELETE_ADDRESS_FAILURE, error };
+}
+
+export function saveCheckoutData(payload: any) {
+  return { type: SAVE_CHECKOUT_DATA, payload };
+}
+
+export function saveCardRequest() {
+  return { type: SAVE_CARDS_REQUEST };
+}
+export function saveCardSuccess(payload: any) {
+  return { type: SAVE_CARDS_SUCCESS, payload };
+}
+export function saveCardFailure(error: any) {
+  return { type: SAVE_CARDS_FAILURE, error };
+}
+
+export function deleteCardRequest() {
+  return { type: DELETE_CARD_REQUEST };
+}
+export function deleteCardSuccess(payload: any) {
+  return { type: DELETE_CARD_SUCCESS, payload };
+}
+export function deleteCardFailure(error: any) {
+  return { type: DELETE_CARD_FAILURE, error };
+}
+
+export function updateCardRequest() {
+  return { type: UPDATE_CARD_REQUEST };
+}
+export function updateCardSuccess(payload: any) {
+  return { type: UPDATE_CARD_SUCCESS, payload };
+}
+export function updateCardFailure(error: any) {
+  return { type: UPDATE_CARD_FAILURE, error };
 }

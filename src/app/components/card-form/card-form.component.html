@@ -1,0 +1,106 @@
+<form
+  class="card-form col-12 mt-3"
+  [formGroup]="cardForm"
+  (submit)="_onSubmit()"
+>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="firstName"
+        formControlName="firstName"
+      />
+    </div>
+    <div class="form-group col-md-6">
+      <label for="lastName">Last Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="lastName"
+        formControlName="lastName"
+      />
+    </div>
+  </div>
+  <div class="form-group" style="position: relative">
+    <label for="cardNumber">Card No</label>
+    <input
+      type="text"
+      class="form-control"
+      id="cardNumber"
+      formControlName="cardNumber"
+      placeholder="4444 1111 2222 3333"
+      onChange="{this.onChange}"
+      style="padding-left: 48px"
+    />
+    <span style="position: absolute; top: 35px; left: 6px">
+      <input
+        readOnly
+        type="text"
+        id="type"
+        formControlName="type"
+        style="display: none"
+      />
+      <fa-icon
+        *ngIf="cardType"
+        size="2x"
+        class="payment-opts"
+        [icon]="getFAIconByType()"
+        color="var(--color-dodgerblue)"
+      ></fa-icon>
+    </span>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-4">
+      <label for="cvv">CVV</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cvv"
+        formControlName="cvv"
+        minLength="{3}"
+        maxLength="{3}"
+        placeholder="123"
+      />
+    </div>
+    <div class="form-group col-4">
+      <label for="expiryMonth">Expiry Month</label>
+      <select
+        class="form-control"
+        id="expiryMonth"
+        formControlName="expiryMonth"
+      >
+        <option [value]="i" *ngFor="let m of months; index as i">
+          {{ m }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group col-4">
+      <label for="expiryYear">Expiry Year</label>
+      <select
+        required
+        class="form-control"
+        id="expiryYear"
+        formControlName="expiryYear"
+      >
+        <option [value]="y" *ngFor="let y of getValidCCYears()">
+          {{ y }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="isDefault"
+        formControlName="isDefault"
+      />
+      <label class="form-check-label" for="isDefault"> Save as default </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>

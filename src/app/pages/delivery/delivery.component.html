@@ -18,11 +18,11 @@
   <ng-container *ngIf="showForm">
     <div class="row m-5">
       <h2 class="col-12 mb-4">
-        {{ isEdit ? "Edit Address" : "Add new Address" }}
+        {{ editAddressId ? "Edit Address" : "Add new Address" }}
       </h2>
       <app-address-form
         style="width: 100%"
-        [isEdit]="isEdit"
+        [isEdit]="!!editAddressId"
         [address]="addressToBeEdited"
         (onSubmit)="onSaveAddress($event)"
       ></app-address-form>

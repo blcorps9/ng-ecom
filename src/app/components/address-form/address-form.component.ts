@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output, Input } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 
+import type { IAddressFields } from "../../types";
+
 @Component({
   selector: "app-address-form",
   templateUrl: "./address-form.component.html",
@@ -10,7 +12,7 @@ export class AddressFormComponent implements OnInit {
   addressForm: FormGroup;
   states = [{ value: "KN", label: "Karnataka" }];
 
-  @Input() address: any = null;
+  @Input() address: IAddressFields | null = null;
   @Input() isEdit: boolean = false;
 
   @Output() onSubmit = new EventEmitter<any>();
@@ -30,7 +32,11 @@ export class AddressFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.isEdit && this.address) {
+      this.addressForm.setValue(this.address);
+    }
+  }
 
   _onSubmit() {
     this.onSubmit.emit(this.addressForm.value);

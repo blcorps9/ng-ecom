@@ -40,6 +40,9 @@ import { ItemTableComponent } from "./components/item-table/item-table.component
 import { DeliveryComponent } from "./pages/delivery/delivery.component";
 import { AddressCardComponent } from "./components/address-card/address-card.component";
 import { AddressFormComponent } from "./components/address-form/address-form.component";
+import { PaymentComponent } from "./pages/payment/payment.component";
+import { CardCardComponent } from "./components/card-card/card-card.component";
+import { CardFormComponent } from "./components/card-form/card-form.component";
 
 const routes: Routes = [
   {
@@ -77,6 +80,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "payment",
+    component: PaymentComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: "**",
     component: PageNotFoundComponent,
   },
@@ -111,6 +119,9 @@ const store = configureStore();
     DeliveryComponent,
     AddressCardComponent,
     AddressFormComponent,
+    PaymentComponent,
+    CardCardComponent,
+    CardFormComponent,
   ],
   imports: [
     BrowserModule,

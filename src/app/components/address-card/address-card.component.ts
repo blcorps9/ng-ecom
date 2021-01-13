@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from "@angular/core";
 import * as _ from "lodash";
 
-import { IFAIconObject } from "src/app/types";
+import { IFAIconObject, IAddressFields } from "src/app/types";
 
 @Component({
   selector: "app-address-card",
@@ -9,10 +9,10 @@ import { IFAIconObject } from "src/app/types";
   styleUrls: ["./address-card.component.scss"],
 })
 export class AddressCardComponent implements OnInit {
-  @Input() address: any;
-  @Output() onEdit = new EventEmitter<any>();
-  @Output() onDelete = new EventEmitter<any>();
-  @Output() onSelect = new EventEmitter<any>();
+  @Input() address: IAddressFields | null = null;
+  @Output() onEdit = new EventEmitter<IAddressFields>();
+  @Output() onDelete = new EventEmitter<IAddressFields>();
+  @Output() onSelect = new EventEmitter<IAddressFields>();
 
   faTrashIcon: IFAIconObject = { prefix: "far", iconName: "trash-alt" };
   faEditIcon: IFAIconObject = { prefix: "far", iconName: "edit" };
@@ -22,28 +22,34 @@ export class AddressCardComponent implements OnInit {
   ngOnInit(): void {}
 
   getAddrLines() {
-    const address = this.address;
+    if (this.address) {
+      const { line1, line2, street } = this.address;
 
-    return _.compact([address.line1, address.line2, address.street]).join(", ");
+      return _.compact([line1, line2, street]).join(", ");
+    }
+
+    return "";
   }
 
   getAddrCity() {
-    const address = this.address;
+    if (this.address) {
+      const { city, state, postalCode } = this.address;
 
-    return _.compact([address.city, address.state, address.postalCode]).join(
-      ", "
-    );
+      return _.compact([city, state, postalCode]).join(", ");
+    }
+
+    return "";
   }
 
   _onEdit() {
-    this.onEdit.emit(this.address);
+    if (this.address) this.onEdit.emit(this.address);
   }
 
   _onDelete() {
-    this.onDelete.emit(this.address);
+    if (this.address) this.onDelete.emit(this.address);
   }
 
   _onSelect() {
-    this.onSelect.emit(this.address);
+    if (this.address) this.onSelect.emit(this.address);
   }
 }

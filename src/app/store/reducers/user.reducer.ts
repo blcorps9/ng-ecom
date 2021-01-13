@@ -250,6 +250,64 @@ export function user(state = initState, action: IReduxAction) {
         isFetching: false,
         error: action.error,
       };
+
+    case actions.SAVE_CHECKOUT_DATA:
+      return {
+        ...state,
+        checkoutData: { ...state.checkoutData, ...action.payload },
+      };
+
+    case actions.SAVE_CARDS_REQUEST:
+      return { ...state, isFetching: true };
+    case actions.SAVE_CARDS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        cards: [...state.cards, action.payload],
+      };
+    case actions.SAVE_CARDS_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
+
+    case actions.DELETE_CARD_REQUEST:
+      return { ...state, isFetching: true };
+    case actions.DELETE_CARD_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        cards: _.filter(state.cards, ({ id }) => id !== action.payload),
+      };
+    case actions.DELETE_CARD_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
+
+    case actions.UPDATE_CARD_REQUEST:
+      return { ...state, isFetching: true };
+    case actions.UPDATE_CARD_SUCCESS: {
+      return {
+        ...state,
+        isFetching: false,
+        cards: _.map(state.cards, (card: any) => {
+          if (card.id === action.payload.id) {
+            return action.payload;
+          }
+
+          return card;
+        }),
+      };
+    }
+    case actions.UPDATE_CARD_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
     default:
       return state;
   }

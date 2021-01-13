@@ -6,7 +6,7 @@
 >
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label htmlFor="firstName">First Name</label>
+      <label for="firstName">First Name</label>
       <input
         type="text"
         class="form-control"
@@ -16,7 +16,7 @@
       />
     </div>
     <div class="form-group col-md-6">
-      <label htmlFor="lastName">Last Name</label>
+      <label for="lastName">Last Name</label>
       <input
         type="text"
         class="form-control"
@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label htmlFor="contactNo">Contact No</label>
+    <label for="contactNo">Contact No</label>
     <input
       type="text"
       class="form-control"
@@ -38,7 +38,7 @@
     />
   </div>
   <div class="form-group">
-    <label htmlFor="line1">Address Ln 1</label>
+    <label for="line1">Address Ln 1</label>
     <input
       type="text"
       class="form-control"
@@ -49,7 +49,7 @@
     />
   </div>
   <div class="form-group">
-    <label htmlFor="line2">Address Ln 2</label>
+    <label for="line2">Address Ln 2</label>
     <input
       type="text"
       class="form-control"
@@ -59,7 +59,7 @@
     />
   </div>
   <div class="form-group">
-    <label htmlFor="street">Street</label>
+    <label for="street">Street</label>
     <input
       type="text"
       class="form-control"
@@ -71,7 +71,7 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-4">
-      <label htmlFor="city">City</label>
+      <label for="city">City</label>
       <input
         type="text"
         class="form-control"
@@ -81,7 +81,7 @@
       />
     </div>
     <div class="form-group col-md-4">
-      <label htmlFor="state">State</label>
+      <label for="state">State</label>
       <select id="state" class="form-control" formControlName="state" required>
         <option selected>Choose state...</option>
         <option *ngFor="let s of states" value="{{ s.value }}">
@@ -90,7 +90,7 @@
       </select>
     </div>
     <div class="form-group col-md-4">
-      <label htmlFor="postalCode">Postal Code</label>
+      <label for="postalCode">Postal Code</label>
       <input
         type="text"
         class="form-control"
@@ -108,9 +108,7 @@
         id="isDefault"
         formControlName="isDefault"
       />
-      <label class="form-check-label" htmlFor="isDefault">
-        Save as default
-      </label>
+      <label class="form-check-label" for="isDefault"> Save as default </label>
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
