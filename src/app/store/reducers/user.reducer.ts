@@ -308,6 +308,22 @@ export function user(state = initState, action: IReduxAction) {
         isFetching: false,
         error: action.error,
       };
+
+    case actions.PLACE_ORDER_REQUEST:
+      return { ...state, isFetching: true };
+    case actions.PLACE_ORDER_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        lastOrder: action.payload,
+        orders: [...state.orders, action.payload],
+      };
+    case actions.PLACE_ORDER_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
     default:
       return state;
   }

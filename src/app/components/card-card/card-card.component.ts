@@ -23,10 +23,17 @@ export class CardCardComponent implements OnInit {
   hasValue = false;
   showSecurityFields = false;
 
+  paymentForm: any = {};
+
   constructor() {}
 
   ngOnInit(): void {
-    console.log("card =-----> ", this.card);
+    this.paymentForm = {
+      cvv: "",
+      expiryMonth: "",
+      expiryYear: "",
+      cardId: this.card.id,
+    };
   }
 
   getSubmitBtnStyles() {
@@ -39,6 +46,18 @@ export class CardCardComponent implements OnInit {
     return _.range(currentYear, currentYear + 10);
   }
 
+  onMouseEnter() {
+    this.showSecurityFields = true;
+  }
+
+  onMouseLeave() {
+    if (!this.hasValue) this.showSecurityFields = false;
+  }
+
+  onKeyUp() {
+    this.hasValue = true;
+  }
+
   _onEdit() {
     if (this.card) this.onEdit.emit(this.card);
   }
@@ -48,6 +67,13 @@ export class CardCardComponent implements OnInit {
   }
 
   _onPayNow() {
-    if (this.card) this.onPayNow.emit(this.card);
+    if (this.card) {
+      const { cvv, expiryMonth, expiryYear } = this.paymentForm;
+
+      if (cvv.length === 3 && expiryMonth && expiryYear) {
+        this.onPayNow.emit(this.card);
+        this.showSecurityFields = false;
+      }
+    }
   }
 }

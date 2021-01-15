@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Routes, RouterModule } from "@angular/router";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -43,6 +43,10 @@ import { AddressFormComponent } from "./components/address-form/address-form.com
 import { PaymentComponent } from "./pages/payment/payment.component";
 import { CardCardComponent } from "./components/card-card/card-card.component";
 import { CardFormComponent } from "./components/card-form/card-form.component";
+import { MaskCcNumPipe } from "./pipes/mask-cc-num.pipe";
+import { ConfirmationComponent } from "./pages/confirmation/confirmation.component";
+import { CheckoutComponent } from "./pages/checkout/checkout.component";
+import { DeliveryStepComponent } from "./pages/checkout/components/delivery-step/delivery-step.component";
 
 const routes: Routes = [
   {
@@ -85,6 +89,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "confirmation",
+    component: ConfirmationComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "checkout",
+    component: CheckoutComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: "**",
     component: PageNotFoundComponent,
   },
@@ -122,8 +136,13 @@ const store = configureStore();
     PaymentComponent,
     CardCardComponent,
     CardFormComponent,
+    MaskCcNumPipe,
+    ConfirmationComponent,
+    CheckoutComponent,
+    DeliveryStepComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     HttpClientModule,
     FontAwesomeModule,

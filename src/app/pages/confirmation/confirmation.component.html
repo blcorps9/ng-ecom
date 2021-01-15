@@ -1,0 +1,22 @@
+<div class="confirmation-page" *ngIf="shouldShow()">
+  <div class="row p-5">
+    <div class="text-center col-12">
+      <h2 class="text-success">Thank you for ordering with us!</h2>
+
+      <h4 class="text-info">
+        Your order will be delivered to you on or before
+        <strong>{{ strDate }}</strong>
+      </h4>
+    </div>
+  </div>
+  <div class="row">
+    <hr />
+  </div>
+  <div class="row p-5 text-center">
+    <div class="col-12">OrderId: {{ lastOrder.id }}</div>
+    <div class="col-12">Order Total: {{ lastOrder.total | currencyInr }}</div>
+    <div class="col-12">
+      <div *ngFor="let item of lastOrder.items">{{ item.id }}</div>
+    </div>
+  </div>
+</div>

@@ -41,7 +41,9 @@ export class CardFormComponent implements OnInit {
     this.cardType = "visa";
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.isEdit) this.cardForm.setValue(this.card);
+  }
 
   getFAIconByType() {
     return { prefix: "fab", iconName: `cc-${this.cardType}` } as IFAIconObject;
@@ -54,7 +56,6 @@ export class CardFormComponent implements OnInit {
   }
 
   _onSubmit() {
-    console.log("this.cardForm =-----> ", this.cardForm);
     if (this.cardForm.status === "VALID") {
       this.onSubmit.emit(this.cardForm.value);
     }

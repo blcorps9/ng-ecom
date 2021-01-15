@@ -59,6 +59,10 @@ export const UPDATE_CARD_REQUEST = "UPDATE_CARD_REQUEST";
 export const UPDATE_CARD_SUCCESS = "UPDATE_CARD_SUCCESS";
 export const UPDATE_CARD_FAILURE = "UPDATE_CARD_FAILURE";
 
+export const PLACE_ORDER_REQUEST = "PLACE_ORDER_REQUEST";
+export const PLACE_ORDER_SUCCESS = "PLACE_ORDER_SUCCESS";
+export const PLACE_ORDER_FAILURE = "PLACE_ORDER_FAILURE";
+
 export function userLoginRequest() {
   return { type: USER_LOGIN_REQUEST };
 }
@@ -203,4 +207,14 @@ export function updateCardSuccess(payload: any) {
 }
 export function updateCardFailure(error: any) {
   return { type: UPDATE_CARD_FAILURE, error };
+}
+
+export function placeOrderRequest() {
+  return { type: PLACE_ORDER_REQUEST };
+}
+export function placeOrderSuccess(payload: any) {
+  return { type: PLACE_ORDER_SUCCESS, payload };
+}
+export function placeOrderFailure(error: any) {
+  return { type: PLACE_ORDER_FAILURE, error };
 }

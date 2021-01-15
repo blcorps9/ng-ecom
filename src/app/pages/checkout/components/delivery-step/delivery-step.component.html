@@ -1,0 +1,109 @@
+<form [formGroup]="addressForm" (submit)="_onSubmit()">
+  <div class="row">
+    <div class="col-4 mb-3">
+      <label for="firstName">First name</label>
+      <input
+        required
+        type="text"
+        id="firstName"
+        name="firstName"
+        class="form-control"
+        defaultValue="Saint"
+      />
+    </div>
+    <div class="col-4 mb-3">
+      <label for="lastName">Last name</label>
+      <input
+        required
+        type="text"
+        id="lastName"
+        name="lastName"
+        class="form-control"
+        defaultValue="Walker"
+      />
+    </div>
+    <div class="col-4 mb-3">
+      <label for="phoneNumber">Phone Number</label>
+      <input
+        required
+        type="text"
+        id="phoneNumber"
+        name="phoneNumber"
+        class="form-control"
+        placeholder="9123456789"
+        defaultValue="9123456789"
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 mb-3">
+      <label for="line1">Address</label>
+      <input
+        required
+        id="line1"
+        name="line1"
+        type="text"
+        class="form-control"
+        placeholder="1234 Main St"
+        defaultValue="1234 Main St"
+      />
+    </div>
+    <div class="col-12 mb-3">
+      <label for="line2">
+        Address 2 <span class="text-muted">(Optional)</span>
+      </label>
+      <input
+        id="line2"
+        type="text"
+        name="line2"
+        class="form-control"
+        placeholder="Apartment or suite"
+        defaultValue="Apartment or suite"
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4 mb-3">
+      <label for="city">City</label>
+      <input
+        required
+        id="city"
+        type="text"
+        name="city"
+        placeholder="Bangalore"
+        defaultValue="Bangalore"
+        class="form-control"
+      />
+    </div>
+    <div class="col-4 mb-3">
+      <label for="state">State</label>
+      <select
+        required
+        id="state"
+        name="state"
+        defaultValue="KN"
+        class="custom-select d-block w-100"
+      >
+        <option>Choose...</option>
+        <option value="KN">Karnataka</option>
+      </select>
+    </div>
+    <div class="col-4 mb-3">
+      <label for="postalCode">Postal Code</label>
+      <input
+        required
+        type="text"
+        id="postalCode"
+        name="postalCode"
+        defaultValue="560001"
+        class="form-control"
+      />
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block" *ngIf="disableCTA">
+    Save Address
+  </button>
+</form>
