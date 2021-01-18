@@ -1,20 +1,21 @@
 <div class="page checkout-page bg-light">
   <div class="row px-5 py-2">
     <div class="col-12 py-3 d-flex justify-content-between">
-      <!-- <CheckoutSteps
-              steps={STEPS}
-              currentStep={currentStep}
-              onSelectStep={this.onSelectStep}
-            /> -->
+      <app-checkout-steps
+        class="w-100"
+        [steps]="checkoutSteps"
+        [currentStep]="currentStep"
+        (onSelectStep)="onSelectStep($event)"
+      ></app-checkout-steps>
     </div>
 
     <div class="card my-2 w-100">
       <div class="card-header d-flex justify-content-between">Cart</div>
       <div class="card-body">
         <app-item-table
-          [noAction]="false"
-          [items]="cart.items"
           *ngIf="cart && cart.items"
+          [noAction]="true"
+          [items]="cart.items"
         ></app-item-table>
         <div
           (click)="onClickNext()"
@@ -38,22 +39,13 @@
       </div>
     </div>
 
-    <!-- <Elements stripe={stripePromise}>
-            <ElementsConsumer>
-              {({ elements, stripe }) => (
-                <PaymentStep
-                  stripe={stripe}
-                  elements={elements}
-                  cartTotal={cartTotal}
-                  showForm={currentStep === 2}
-                  billingAddress={billingAddress}
-                  onSuccess={this.onPaymentSuccess}
-                  onFailure={this.onPaymentFailure}
-                  showLoader={this.props.showLoader}
-                  hideLoader={this.props.hideLoader}
-                />
-              )}
-            </ElementsConsumer>
-          </Elements> -->
+    <app-payment-step
+      class="w-100"
+      [cartTotal]="cartTotal"
+      [showForm]="currentStep === 2"
+      [billingAddress]="billingAddress"
+      (onSuccess)="onPaymentSuccess($event)"
+      (onFailure)="onPaymentFailure($event)"
+    ></app-payment-step>
   </div>
 </div>

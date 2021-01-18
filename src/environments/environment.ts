@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: "/api",
+  STRIPE_KEY: "<YOUR_STRIPE_KEY>",
 };
 
 /*

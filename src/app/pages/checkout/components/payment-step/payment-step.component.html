@@ -1,0 +1,19 @@
+<div class="card my-2 w-100">
+  <div class="card-header d-flex justify-content-between">
+    <span>Payment</span>
+    <span>Cart Total: {{ cartTotal | currencyInr }}</span>
+  </div>
+  <div class="card-body" [style.display]="showForm ? 'block' : 'none'">
+    <div id="card-element"></div>
+  </div>
+</div>
+
+<div
+  (click)="_onPayNow()"
+  disabled="!enablePayNow"
+  [style]="getPayNowStyles()"
+  [ngClass]="getPayNowClasses()"
+  class="col-12 p-2 d-flex justify-content-center"
+>
+  Pay Now
+</div>

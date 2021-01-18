@@ -1,0 +1,11 @@
+<div class="checkout-steps">
+  <div
+    *ngFor="let s of steps; index as i"
+    class="step"
+    (click)="_onSelectStep(i)"
+    [ngClass]="getStepClasses(i)"
+  >
+    <div class="step-circle">{{ s.id }}</div>
+    <div class="step-label">{{ s.label }}</div>
+  </div>
+</div>

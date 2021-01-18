@@ -47,6 +47,8 @@ import { MaskCcNumPipe } from "./pipes/mask-cc-num.pipe";
 import { ConfirmationComponent } from "./pages/confirmation/confirmation.component";
 import { CheckoutComponent } from "./pages/checkout/checkout.component";
 import { DeliveryStepComponent } from "./pages/checkout/components/delivery-step/delivery-step.component";
+import { PaymentStepComponent } from './pages/checkout/components/payment-step/payment-step.component';
+import { CheckoutStepsComponent } from './pages/checkout/components/checkout-steps/checkout-steps.component';
 
 const routes: Routes = [
   {
@@ -140,6 +142,8 @@ const store = configureStore();
     ConfirmationComponent,
     CheckoutComponent,
     DeliveryStepComponent,
+    PaymentStepComponent,
+    CheckoutStepsComponent,
   ],
   imports: [
     FormsModule,
