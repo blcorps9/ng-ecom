@@ -1,0 +1,57 @@
+<div class="orders-page">
+  <div class="row px-5 py-2">
+    <div class="card w-100" style="font-weight: 500">
+      <div class="card-header">My Order</div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let o of orders">
+          <div class="card w-100">
+            <div class="card-header d-flex justify-content-between">
+              <span>{{ o.id }}</span>
+              <span>
+                Order Total: <strong>{{ o.total }}</strong>
+              </span>
+              <span [ngClass]="getOrderStatusClass(o)">
+                Status: {{ isOrderDelivered(o) ? "Delivered" : "In Transit" }}
+              </span>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <span>
+                  Delivery Address:
+                  {{ getDeliveryAddress(o.address) }}
+                </span>
+              </li>
+              <li class="list-group-item">
+                <span>
+                  Payment Method:
+                  {{ getPaymentMethod(o.card) }}
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Number of Items: {{ o.items.length }}</span>
+                <span
+                  (click)="onShowAllItems(o)"
+                  style="cursor: pointer; text-decoration: underline"
+                >
+                  Show all Items
+                </span>
+              </li>
+              <li class="list-group-item" *ngIf="showItemsForOrder === o.id">
+                <app-item-table
+                  [items]="itemsForOrder"
+                  actionLabel="Add to Cart"
+                  (onAction)="onAddToCart($event)"
+                ></app-item-table>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      <app-pagination
+        [config]="paginationConfig"
+        (onChange)="onPaginationChange($event)"
+        classes="card-footer d-flex justify-content-between"
+      ></app-pagination>
+    </div>
+  </div>
+</div>

@@ -28,3 +28,31 @@ export type IAddressFields = {
   lastName?: string;
   fullName?: string;
 };
+
+export type IOrderItem = {
+  quantity: number;
+  id: string;
+  price: number;
+  color?: string;
+  szie?: string;
+};
+
+export type IOrder = {
+  address: string;
+  card: string;
+  createdAt: string;
+  deliveryDate: string;
+  discount: number;
+  id: string;
+  items: IOrderItem[];
+  tax: number;
+  total: number;
+  updatedAt: string;
+  user: string;
+};
+
+export type IPaginationConfig = {
+  itemsPerPage: number;
+  currentPage: number;
+  totalPages: number;
+};

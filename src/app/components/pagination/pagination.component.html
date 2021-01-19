@@ -1,0 +1,36 @@
+<nav [ngClass]="getRootClasses()" style="height: 60px" *ngIf="config">
+  <label for="items-per-page">
+    Items Per Page:
+    <select
+      name="items-per-page"
+      [value]="config.itemsPerPage"
+      (change)="onChangeItemsPerPage($event)"
+    >
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </label>
+  <ul class="pagination justify-content-end">
+    <li class="page-item" [ngClass]="{ disabled: config.currentPage === 0 }">
+      <span class="page-link" (click)="onClickPrev()"> Previous </span>
+    </li>
+    <li
+      class="page-item"
+      *ngFor="let p of totalPagesRange"
+      [ngClass]="{ active: config.currentPage === p }"
+    >
+      <span class="page-link" (click)="onClickPage(p)">
+        {{ p + 1 }}
+      </span>
+    </li>
+    <li
+      class="page-item"
+      [ngClass]="{ disabled: config.currentPage === config.totalPages - 1 }"
+    >
+      <span class="page-link" (click)="onClickNext()"> Next </span>
+    </li>
+  </ul>
+</nav>

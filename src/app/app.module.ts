@@ -47,8 +47,10 @@ import { MaskCcNumPipe } from "./pipes/mask-cc-num.pipe";
 import { ConfirmationComponent } from "./pages/confirmation/confirmation.component";
 import { CheckoutComponent } from "./pages/checkout/checkout.component";
 import { DeliveryStepComponent } from "./pages/checkout/components/delivery-step/delivery-step.component";
-import { PaymentStepComponent } from './pages/checkout/components/payment-step/payment-step.component';
-import { CheckoutStepsComponent } from './pages/checkout/components/checkout-steps/checkout-steps.component';
+import { PaymentStepComponent } from "./pages/checkout/components/payment-step/payment-step.component";
+import { CheckoutStepsComponent } from "./pages/checkout/components/checkout-steps/checkout-steps.component";
+import { MyOrdersComponent } from "./pages/my-orders/my-orders.component";
+import { PaginationComponent } from "./components/pagination/pagination.component";
 
 const routes: Routes = [
   {
@@ -78,6 +80,11 @@ const routes: Routes = [
   {
     path: "my-cart",
     component: MyCartComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "my-orders",
+    component: MyOrdersComponent,
     canActivate: [AuthGuard],
   },
   {
@@ -144,6 +151,8 @@ const store = configureStore();
     DeliveryStepComponent,
     PaymentStepComponent,
     CheckoutStepsComponent,
+    MyOrdersComponent,
+    PaginationComponent,
   ],
   imports: [
     FormsModule,
